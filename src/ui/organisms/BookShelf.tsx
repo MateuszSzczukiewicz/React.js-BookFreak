@@ -1,6 +1,7 @@
 import { useEffect, useState, FC } from "react";
 import { SingleBook } from "../molecules/SingleBook.tsx";
 import axios, { AxiosResponse } from "axios";
+import { AddBook } from "../molecules/AddBook.tsx";
 
 interface Book {
 	title: string;
@@ -26,6 +27,7 @@ export const BookShelf: FC = () => {
 			{books.map((book, index) => (
 				<SingleBook key={index} title={book.title} author={book.author} />
 			))}
+			<AddBook />
 		</main>
 	);
 };
