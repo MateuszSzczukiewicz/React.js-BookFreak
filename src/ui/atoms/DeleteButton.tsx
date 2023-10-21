@@ -1,13 +1,23 @@
-export const DeleteButton = () => {
+import axios from "axios";
+
+export const DeleteButton = ({ _id }: { _id: string }) => {
+	const HandleDelete = async () => {
+		try {
+			await axios.delete(`http://localhost:8000/api/books/${_id}`);
+		} catch (e) {
+			console.error("Error deleting item:", e);
+		}
+	};
+
 	return (
-		<button>
+		<button onClick={HandleDelete}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"
 				strokeWidth={1.5}
 				stroke="currentColor"
-				className="h-6 w-6 opacity-50 hover:opacity-100"
+				className="h-6 w-6 opacity-50 transition hover:opacity-100"
 			>
 				<path
 					strokeLinecap="round"

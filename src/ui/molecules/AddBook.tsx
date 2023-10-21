@@ -1,18 +1,30 @@
+import axios from "axios";
+
 export const AddBook = () => {
-	const handleClick = () => {
-		console.log("Kliknięto przycisk");
+	const HandleSave = async () => {
+		const newTitle: string | null = prompt("Enter new title");
+		const newAuthor: string | null = prompt("Enter new author");
+
+		try {
+			await axios.post(`http://localhost:8000/api/books`, {
+				title: newTitle,
+				author: newAuthor,
+			});
+		} catch (e) {
+			console.error("Error deleting item:", e);
+		}
 	};
 
 	return (
 		<div className="mx-auto flex h-56 w-44 items-center justify-center rounded-2xl bg-zinc-200 text-center text-2xl">
-			<button onClick={handleClick}>
+			<button onClick={HandleSave}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					strokeWidth={1}
 					stroke="currentColor"
-					className="h-16 w-16"
+					className="h-16 w-16 transition hover:scale-110"
 				>
 					<path
 						strokeLinecap="round"

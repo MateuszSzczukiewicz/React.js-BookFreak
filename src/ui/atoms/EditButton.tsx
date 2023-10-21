@@ -1,13 +1,29 @@
-export const EditButton = () => {
+import axios from "axios";
+
+export const EditButton = ({ _id }: { _id: string }) => {
+	const HandleEdit = async () => {
+		const newTitle: string | null = prompt("Enter new title");
+		const newAuthor: string | null = prompt("Enter new author");
+
+		try {
+			await axios.put(`http://localhost:8000/api/books/${_id}`, {
+				title: newTitle,
+				author: newAuthor,
+			});
+		} catch (e) {
+			console.error("Error deleting item:", e);
+		}
+	};
+
 	return (
-		<button>
+		<button onClick={HandleEdit}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"
 				strokeWidth={1.5}
 				stroke="currentColor"
-				className="mr-2 h-6 w-6 opacity-50 hover:opacity-100"
+				className="mr-2 h-6 w-6 opacity-50 transition hover:opacity-100"
 			>
 				<path
 					strokeLinecap="round"
