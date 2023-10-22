@@ -21,7 +21,7 @@ export const BookShelf: FC = () => {
 				console.error("Błąd podczas pobierania danych:", error);
 			}
 		})();
-	}, []);
+	}, [books]);
 
 	return (
 		<main className="mx-auto my-20 grid grid-cols-1 justify-around gap-10 sm:grid-cols-2 md:grid-cols-3 lg:mx-48 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">

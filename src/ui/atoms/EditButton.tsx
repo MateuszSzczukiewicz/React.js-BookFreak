@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const EditButton = ({ _id }: { _id: string }) => {
-	const HandleEdit = async () => {
+	const handleEdit = async () => {
 		const newTitle: string | null = prompt("Enter new title");
 		const newAuthor: string | null = prompt("Enter new author");
 
@@ -16,7 +16,7 @@ export const EditButton = ({ _id }: { _id: string }) => {
 	};
 
 	return (
-		<button onClick={HandleEdit}>
+		<button onClick={handleEdit}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
