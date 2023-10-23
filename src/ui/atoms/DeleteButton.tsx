@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const DeleteButton = ({ _id }: { _id: string }) => {
-	const handleDelete = async () => {
+	const handleDelete = async (): Promise<void> => {
 		try {
 			await axios.delete(`http://localhost:8000/api/books/${_id}`);
 		} catch (e) {
