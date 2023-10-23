@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const DeleteButton = ({ _id }: { _id: string }) => {
-	const HandleDelete = async () => {
+	const handleDelete = async (): Promise<void> => {
 		try {
 			await axios.delete(`http://localhost:8000/api/books/${_id}`);
 		} catch (e) {
@@ -10,7 +10,7 @@ export const DeleteButton = ({ _id }: { _id: string }) => {
 	};
 
 	return (
-		<button onClick={HandleDelete}>
+		<button onClick={handleDelete}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
