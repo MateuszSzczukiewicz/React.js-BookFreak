@@ -1,4 +1,6 @@
-import { Tools } from "./Tools.tsx";
+import { useState } from "react";
+import { Tools } from "../organisms/Tools.tsx";
+import { SettingsButton } from "../atoms/SettingsButton.tsx";
 
 interface SingleBookProps {
 	_id: string;
@@ -7,13 +9,26 @@ interface SingleBookProps {
 }
 
 export const SingleBook = ({ title, author, _id }: SingleBookProps) => {
+	const [isOpen, setIsOpen] = useState<boolean>(true);
+
+	const toggleTools = (): void => {
+		setIsOpen(!isOpen);
+	};
+
 	return (
-		<div className="mx-auto flex h-56 w-44 flex-col rounded-2xl bg-zinc-200 text-2xl">
-			<Tools _id={_id} />
-			<div className="items-center justify-center text-center">
-				<p>{title}</p>
-				<p>{author}</p>
-			</div>
-		</div>
+		<>
+			{isOpen ? (
+				<Tools isOpen={isOpen} _id={_id} toggleTools={toggleTools} />
+			) : (
+				<div className="mx-auto flex h-56 w-44 flex-col rounded-2xl bg-zinc-200 text-2xl shadow-lg">
+					<SettingsButton isOpen={isOpen} toggleTools={toggleTools} />
+
+					<div className="items-center justify-center text-center">
+						<p>{title}</p>
+						<p>{author}</p>
+					</div>
+				</div>
+			)}
+		</>
 	);
 };
