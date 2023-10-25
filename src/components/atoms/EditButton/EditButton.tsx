@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
-import { BookInputForm } from "../organisms/BookInputForm.tsx";
-import { SingleTool } from "../molecules/SingleTool.tsx";
+import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
+import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
+import { editBook } from "../../../api/EditBookAPI.ts";
 
 export const EditButton = ({ _id }: { _id: string }) => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
@@ -10,16 +10,8 @@ export const EditButton = ({ _id }: { _id: string }) => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = async (newTitle: string, newAuthor: string): Promise<void> => {
-		try {
-			await axios.put(`http://localhost:8000/api/books/${_id}`, {
-				title: newTitle,
-				author: newAuthor,
-			});
-		} catch (e) {
-			console.error("Error edit item:", e);
-		}
-
+	const handleFormSubmit = async (title: string, author: string): Promise<void> => {
+		await editBook(_id, title, author);
 		setIsFormVisible(false);
 	};
 

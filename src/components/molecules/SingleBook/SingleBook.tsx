@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { Tools } from "../organisms/Tools.tsx";
-import { SettingsButton } from "../atoms/SettingsButton.tsx";
+import { Tools } from "../../organisms/Tools/Tools.tsx";
+import { SettingsButton } from "../../atoms/SettingsButton/SettingsButton.tsx";
+import { BookType } from "../../../types/book.type.ts";
 
-interface SingleBookProps {
-	_id: string;
-	title: string;
-	author: string;
-}
-
-export const SingleBook = ({ title, author, _id }: SingleBookProps) => {
-	const [isOpen, setIsOpen] = useState<boolean>(true);
+export const SingleBook = ({ title, author, _id }: BookType) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const toggleTools = (): void => {
 		setIsOpen(!isOpen);

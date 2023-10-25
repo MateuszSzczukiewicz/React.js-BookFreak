@@ -1,11 +1,7 @@
 import { useState } from "react";
+import { BookInputFormType } from "../../../types/bookInputForm.type.ts";
 
-interface BookInputFormProps {
-	onFormSubmit: (newTitle: string, newAuthor: string) => void;
-	setIsFormVisible: (isVisible: boolean) => void;
-}
-
-export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormProps) => {
+export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormType) => {
 	const [newTitle, setNewTitle] = useState<string>("");
 	const [newAuthor, setNewAuthor] = useState<string>("");
 
