@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
 import { editBook } from "../../../api/EditBookAPI.ts";
+import { BookContext } from "../../organisms/BookShelf/BookShelf.tsx";
 
-export const EditButton = ({ _id }: { _id: string }) => {
+export const EditButton = () => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
+
+	const context = useContext(BookContext);
+
+	if (!context) return null;
+
+	const { _id } = context;
 
 	const handleEdit = () => {
 		setIsFormVisible(true);
