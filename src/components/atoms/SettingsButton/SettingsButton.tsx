@@ -1,9 +1,6 @@
-interface SettingsButtonProps {
-	isOpen: boolean;
-	toggleTools: () => void;
-}
+import { SettingsTool } from "../../../types/tool.type.ts";
 
-export const SettingsButton = ({ isOpen, toggleTools }: SettingsButtonProps) => {
+export const SettingsButton = ({ isOpen, toggleTools }: SettingsTool) => {
 	const handleClick = (): void => {
 		toggleTools();
 	};

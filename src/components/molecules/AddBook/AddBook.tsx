@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { BookInputForm } from "../organisms/BookInputForm.tsx";
+import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 
 export const AddBook = () => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { SingleTool } from "../molecules/SingleTool.tsx";
+import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
 
-export const DeleteButton = ({ _id }: { _id: string }) => {
+export const DeleteButton = ({ _id }: { _id?: string }) => {
 	const handleDelete = async (): Promise<void> => {
 		try {
 			await axios.delete(`http://localhost:8000/api/books/${_id}`);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { BookInputForm } from "../organisms/BookInputForm.tsx";
-import { SingleTool } from "../molecules/SingleTool.tsx";
+import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
+import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
 
 export const EditButton = ({ _id }: { _id: string }) => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
