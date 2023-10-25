@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
+import { addBook } from "../../../api/AddBookAPI.ts";
 
 export const AddBook = () => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
@@ -9,16 +9,8 @@ export const AddBook = () => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = async (newTitle: string, newAuthor: string): Promise<void> => {
-		try {
-			await axios.post(`http://localhost:8000/api/books`, {
-				title: newTitle,
-				author: newAuthor,
-			});
-		} catch (e) {
-			console.error("Error adding item:", e);
-		}
-
+	const handleFormSubmit = async (title: string, author: string): Promise<void> => {
+		await addBook(title, author);
 		setIsFormVisible(false);
 	};
 

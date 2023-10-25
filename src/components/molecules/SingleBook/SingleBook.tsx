@@ -4,7 +4,7 @@ import { SettingsButton } from "../../atoms/SettingsButton/SettingsButton.tsx";
 import { BookType } from "../../../types/book.type.ts";
 
 export const SingleBook = ({ title, author, _id }: BookType) => {
-	const [isOpen, setIsOpen] = useState<boolean>(true);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const toggleTools = (): void => {
 		setIsOpen(!isOpen);
