@@ -1,4 +1,4 @@
-import { LogoffButton } from "../../atoms/LogffButton/LogoffButton.tsx";
+import { LogoutButton } from "../../atoms/LogffButton/LogoutButton.tsx";
 import banner from "../../../assets/images/banner.png";
 
 export const NavBar = () => {
@@ -6,7 +6,7 @@ export const NavBar = () => {
 		<header className="sticky top-0 z-20 w-full border-b bg-zinc-200 bg-opacity-60 backdrop-blur-lg">
 			<nav className="flex h-20 justify-between md:ml-20">
 				<img src={banner} alt="Logo BookFreak" className="h-20" />
-				<LogoffButton />
+				<LogoutButton />
 			</nav>
 		</header>
 	);

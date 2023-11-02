@@ -1,9 +1,15 @@
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { deleteBook } from "../../../api/DeleteBookAPI.ts";
+import { deleteBooks } from "../../../features/book/books-slice.ts";
+import { useDispatch } from "react-redux";
+import { RootDispatch } from "../../../store";
+import { DeleteAndEditType } from "../../../types/tool.type.ts";
 
-export const DeleteButton = ({ _id }: { _id: string }) => {
-	const handleDelete = async (): Promise<void> => {
-		await deleteBook(_id);
+export const DeleteButton = ({ _id, toggleTools }: DeleteAndEditType) => {
+	const dispatch = useDispatch<RootDispatch>();
+
+	const handleDelete = async () => {
+		dispatch(deleteBooks({ _id }));
+		toggleTools();
 	};
 
 	return (

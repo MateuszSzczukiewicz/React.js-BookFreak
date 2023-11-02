@@ -8,8 +8,8 @@ export const Tools = ({ _id, isOpen, toggleTools }: ToolsType) => {
 		<div className="mx-auto flex h-56 w-44 flex-col rounded-2xl border bg-zinc-50 text-2xl shadow-lg">
 			<SettingsButton isOpen={isOpen} toggleTools={toggleTools} />
 			<div className="h-full justify-center divide-y-2 divide-zinc-200">
-				<EditButton _id={_id} />
-				<DeleteButton _id={_id} />
+				<EditButton _id={_id} toggleTools={toggleTools} />
+				<DeleteButton _id={_id} toggleTools={toggleTools} />
 			</div>
 		</div>
 	);

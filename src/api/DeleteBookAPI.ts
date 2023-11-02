@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const deleteBook = async (_id: string) => {
 	try {
-		await axios.delete(import.meta.env.VITE_API_URL + `/${_id}`);
+		const response = await axios.delete(import.meta.env.VITE_API_URL + `/${_id}`);
+		return response.data;
 	} catch (e) {
 		console.error("Error deleting item:", e);
 	}
