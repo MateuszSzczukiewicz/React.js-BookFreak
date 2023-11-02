@@ -1,18 +1,23 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editBooks } from "../../../features/books/books-slice";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { editBook } from "../../../api/EditBookAPI.ts";
+import { RootDispatch } from "../../../store";
+import { DeleteAndEditType } from "../../../types/tool.type.ts";
 
-export const EditButton = ({ _id }: { _id: string }) => {
+export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
+	const dispatch = useDispatch<RootDispatch>();
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
 
 	const handleEdit = () => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = async (title: string, author: string): Promise<void> => {
-		await editBook(_id, title, author);
+	const handleFormSubmit = (title: string, author: string) => {
+		dispatch(editBooks({ _id, title, author }));
 		setIsFormVisible(false);
+		toggleTools();
 	};
 
 	return (

@@ -3,5 +3,3 @@ export type BookType = {
 	title: string;
 	author: string;
 };
-
-export type NewBookType = Omit<BookType, "_id">;

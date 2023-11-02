@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
-import { addBook } from "../../../api/AddBookAPI.ts";
 import { PlusCircle } from "../../../assets/icons/plus-circle.tsx";
+import { useDispatch } from "react-redux";
+import { addBooks } from "../../../features/books/books-slice.ts";
+import { RootDispatch } from "../../../store";
 
 export const AddBook = () => {
+	const dispatch = useDispatch<RootDispatch>();
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
 
 	const handleAdd = (): void => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = async (title: string, author: string): Promise<void> => {
-		await addBook(title, author);
+	const handleFormSubmit = async (title: string, author: string) => {
+		dispatch(addBooks({ title, author }));
 		setIsFormVisible(false);
 	};
 

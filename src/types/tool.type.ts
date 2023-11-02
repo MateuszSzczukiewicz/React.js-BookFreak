@@ -6,6 +6,8 @@ export type ToolsType = {
 
 export type SettingsTool = Omit<ToolsType, "_id">;
 
+export type DeleteAndEditType = Omit<ToolsType, "isOpen">;
+
 export type ToolType = {
 	text: string;
 	isRed?: boolean;
