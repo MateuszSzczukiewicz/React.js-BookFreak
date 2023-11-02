@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { loginUser } from "../../../api/users/LoginUserAPI.ts";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../../api/users/RegisterUserAPI.ts";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [passwordConfirmation, setPasswordConfirmation] = useState("");
 	const navigate = useNavigate();
 
-	const handleLogin = async () => {
+	const handleRegistration = async () => {
 		try {
-			const isAuthenticated = await loginUser(username, password);
-			if (isAuthenticated) {
-				navigate("/");
+			if (password === passwordConfirmation) {
+				await registerUser(username, password);
+				navigate("/login");
 			} else {
-				console.error("Login failed");
+				console.error("Passwords do not match");
 			}
 		} catch (e) {
-			console.error("Login Error:", e);
+			console.error("Registration Error:", e);
 		}
 	};
 
@@ -34,7 +35,7 @@ export const LoginForm = () => {
 						onChange={(e) => setUsername(e.target.value)}
 					/>
 				</div>
-				<div className="mb-6">
+				<div className="mb-4">
 					<label className="mb-2 block text-sm font-bold text-gray-700">Hasło</label>
 					<input
 						className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
@@ -46,19 +47,31 @@ export const LoginForm = () => {
 					/>
 					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
 				</div>
+				<div className="mb-6">
+					<label className="mb-2 block text-sm font-bold text-gray-700">Powtórz hasło</label>
+					<input
+						className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+						id="password"
+						type="password"
+						placeholder="Hasło"
+						value={passwordConfirmation}
+						onChange={(e) => setPasswordConfirmation(e.target.value)}
+					/>
+					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
+				</div>
 				<div className="flex items-center justify-between">
 					<button
-						onClick={handleLogin}
+						onClick={handleRegistration}
 						className="focus:shadow-outline rounded bg-zinc-700 px-4 py-2 font-bold text-white focus:outline-none"
 						type="button"
 					>
-						Zaloguj się
+						Utwórz konto
 					</button>
 					<button
-						onClick={() => navigate("/register")}
+						onClick={() => navigate("/login")}
 						className="inline-block align-baseline text-sm font-bold text-zinc-800"
 					>
-						Utwórz konto
+						Zaloguj się
 					</button>
 				</div>
 			</form>
