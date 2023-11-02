@@ -3,7 +3,7 @@ import { SingleBook } from "../../molecules/SingleBook/SingleBook.tsx";
 import { AddBook } from "../../molecules/AddBook/AddBook.tsx";
 import { BookType } from "../../../types/book.type.ts";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks } from "../../../features/book/books-slice.ts";
+import { fetchBooks } from "../../../features/books/books-slice.ts";
 import { RootDispatch, RootState } from "../../../store";
 
 export const BookShelf: FC = () => {

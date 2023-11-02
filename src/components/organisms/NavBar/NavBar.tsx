@@ -1,4 +1,4 @@
-import { LogoutButton } from "../../atoms/LogffButton/LogoutButton.tsx";
+import { LogoutButton } from "../../atoms/LogoutButton/LogoutButton.tsx";
 import banner from "../../../assets/images/banner.png";
 
 export const NavBar = () => {

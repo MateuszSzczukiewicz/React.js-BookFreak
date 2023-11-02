@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BookType } from "../../types/book.type";
-import { getBooks } from "../../api/GetBooksAPI";
-import { addBook } from "../../api/AddBookAPI.ts";
-import { editBook } from "../../api/EditBookAPI.ts";
-import { deleteBook } from "../../api/DeleteBookAPI.ts";
+import { getBooks } from "../../api/books/GetBooksAPI.ts";
+import { addBook } from "../../api/books/AddBookAPI.ts";
+import { editBook } from "../../api/books/EditBookAPI.ts";
+import { deleteBook } from "../../api/books/DeleteBookAPI.ts";
 
 const initialState: BookType[] = [];
 

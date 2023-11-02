@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { PlusCircle } from "../../../assets/icons/plus-circle.tsx";
 import { useDispatch } from "react-redux";
-import { addBooks } from "../../../features/book/books-slice.ts";
+import { addBooks } from "../../../features/books/books-slice.ts";
 import { RootDispatch } from "../../../store";
 
 export const AddBook = () => {

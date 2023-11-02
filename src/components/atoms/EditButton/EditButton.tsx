@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editBooks } from "../../../features/book/books-slice";
+import { editBooks } from "../../../features/books/books-slice";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
 import { RootDispatch } from "../../../store";

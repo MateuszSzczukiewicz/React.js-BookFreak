@@ -1,5 +1,5 @@
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { deleteBooks } from "../../../features/book/books-slice.ts";
+import { deleteBooks } from "../../../features/books/books-slice.ts";
 import { useDispatch } from "react-redux";
 import { RootDispatch } from "../../../store";
 import { DeleteAndEditType } from "../../../types/tool.type.ts";
