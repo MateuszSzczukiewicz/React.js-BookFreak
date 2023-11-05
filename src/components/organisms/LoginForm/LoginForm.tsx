@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { loginUser } from "../../../api/users/LoginUserAPI.ts";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAccessToken, setRefreshToken, setUser } from "../../../features/users/user-slice.ts";
 
 export const LoginForm = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleLogin = async () => {
 		try {
-			const isAuthenticated = await loginUser(username, password);
-			if (isAuthenticated) {
+			const response = await loginUser(username, password);
+			if (response.success) {
+				dispatch(setUser(response.user));
+				dispatch(setAccessToken(response.token));
+				dispatch(setRefreshToken(response.refreshToken));
 				navigate("/");
 			} else {
 				console.error("Login failed");
@@ -32,6 +38,7 @@ export const LoginForm = () => {
 						placeholder="Adres e-mail"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+						autoComplete="username"
 					/>
 				</div>
 				<div className="mb-6">
@@ -43,6 +50,7 @@ export const LoginForm = () => {
 						placeholder="Hasło"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						autoComplete="current-password"
 					/>
 					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
 				</div>

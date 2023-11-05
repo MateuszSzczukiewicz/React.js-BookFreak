@@ -33,6 +33,7 @@ export const RegisterForm = () => {
 						placeholder="Adres e-mail"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+						autoComplete="username"
 					/>
 				</div>
 				<div className="mb-4">
@@ -44,6 +45,7 @@ export const RegisterForm = () => {
 						placeholder="Hasło"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						autoComplete="new-password"
 					/>
 					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
 				</div>
@@ -51,11 +53,12 @@ export const RegisterForm = () => {
 					<label className="mb-2 block text-sm font-bold text-gray-700">Powtórz hasło</label>
 					<input
 						className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-						id="password"
+						id="passwordConfirmation"
 						type="password"
-						placeholder="Hasło"
+						placeholder="Powtórz hasło"
 						value={passwordConfirmation}
 						onChange={(e) => setPasswordConfirmation(e.target.value)}
+						autoComplete="new-password"
 					/>
 					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
 				</div>

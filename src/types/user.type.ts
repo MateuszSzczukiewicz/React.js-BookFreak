@@ -1,5 +1,7 @@
 export type UserType = {
-	_id: string;
-	username: string;
-	password: string;
+	user: {
+		username: string;
+	} | null;
+	accessToken: string | null;
+	refreshToken: string | null;
 };

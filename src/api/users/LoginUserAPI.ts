@@ -6,8 +6,16 @@ export const loginUser = async (username: string, password: string) => {
 			username,
 			password,
 		});
-		return response.data;
+
+		if (response.status === 200) {
+			const { token, refreshToken, user } = response.data;
+			return { success: true, token, refreshToken, user };
+		} else {
+			console.error("Unexpected response status:", response.status);
+			return { success: false };
+		}
 	} catch (e) {
 		console.error("Error logging user:", e);
+		return { success: false };
 	}
 };
