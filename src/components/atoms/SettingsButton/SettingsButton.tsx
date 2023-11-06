@@ -8,8 +8,10 @@ export const SettingsButton = ({ isOpen, toggleTools }: SettingsTool) => {
 	};
 
 	return (
-		<button className="m-2 self-end" onClick={handleClick}>
-			{isOpen ? <XMark /> : <Cog />}
-		</button>
+		<>
+			<button className="z-10 m-2 self-end" onClick={handleClick}>
+				{isOpen ? <XMark /> : <Cog />}
+			</button>
+		</>
 	);
 };
