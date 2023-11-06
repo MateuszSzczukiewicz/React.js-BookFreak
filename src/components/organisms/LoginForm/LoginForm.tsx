@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { loginUser } from "../../../api/users/LoginUserAPI.ts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAccessToken, setRefreshToken, setUser } from "../../../features/users/user-slice.ts";
+import { signInSchema, SignInSchemaType } from "../../../types/signInSchema.type.ts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { UserFormType } from "../../../types/user.type.ts";
+import { useState } from "react";
 
 export const LoginForm = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [loginError, setLoginError] = useState("");
 
-	const handleLogin = async () => {
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<SignInSchemaType>({
+		resolver: zodResolver(signInSchema),
+	});
+
+	const onSubmit = async ({ username, password }: UserFormType) => {
 		try {
 			const response = await loginUser(username, password);
 			if (response.success) {
@@ -19,6 +30,7 @@ export const LoginForm = () => {
 				dispatch(setRefreshToken(response.refreshToken));
 				navigate("/");
 			} else {
+				setLoginError("Dane logowania nieprawidłowe");
 				console.error("Login failed");
 			}
 		} catch (e) {
@@ -28,37 +40,49 @@ export const LoginForm = () => {
 
 	return (
 		<div className="w-full max-w-2xl">
-			<form className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
-				<div className="mb-4">
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
+			>
+				<div className="mb-6">
 					<label className="mb-2 block text-sm font-bold text-gray-700">Adres e-mail</label>
-					<input
-						className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-						id="username"
-						type="text"
-						placeholder="Adres e-mail"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						autoComplete="username"
+					<Controller
+						name="username"
+						control={control}
+						render={({ field }) => (
+							<input
+								{...field}
+								className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+								type="text"
+								placeholder="Adres e-mail"
+								autoComplete="username"
+							/>
+						)}
 					/>
+					{errors.username && <p className="text-xs italic text-red-500">E-mail jest wymagany</p>}
 				</div>
 				<div className="mb-6">
 					<label className="mb-2 block text-sm font-bold text-gray-700">Hasło</label>
-					<input
-						className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-						id="password"
-						type="password"
-						placeholder="Hasło"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						autoComplete="current-password"
+					<Controller
+						name="password"
+						control={control}
+						render={({ field }) => (
+							<input
+								{...field}
+								className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+								type="password"
+								placeholder="Hasło"
+								autoComplete="current-password"
+							/>
+						)}
 					/>
-					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
+					{errors.password && <p className="text-xs italic text-red-500">Hasło jest wymagane!</p>}
+					{loginError && <p className="text-xs italic text-red-500">{loginError}</p>}
 				</div>
 				<div className="flex items-center justify-between">
 					<button
-						onClick={handleLogin}
 						className="focus:shadow-outline rounded bg-zinc-700 px-4 py-2 font-bold text-white focus:outline-none"
-						type="button"
+						type="submit"
 					>
 						Zaloguj się
 					</button>

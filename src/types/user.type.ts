@@ -6,3 +6,12 @@ export type UserType = {
 	accessToken: string | null;
 	refreshToken: string | null;
 };
+
+export type UserFormType = {
+	username: string;
+	password: string;
+};
+
+export type ChangeUserPasswordType = {
+	password: string;
+};

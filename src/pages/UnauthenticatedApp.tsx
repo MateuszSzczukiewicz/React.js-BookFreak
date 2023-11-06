@@ -5,7 +5,7 @@ import { RegisterPage } from "./RegisterPage.tsx";
 export const UnauthenticatedApp = () => {
 	return (
 		<Routes>
-			<Route path="/login" element={<LoginPage />} />
+			<Route path="*" element={<LoginPage />} />
 			<Route path="/register" element={<RegisterPage />} />
 		</Routes>
 	);

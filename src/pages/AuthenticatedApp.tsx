@@ -1,22 +1,24 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Homepage } from "./Homepage.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { ProfilePage } from "./ProfilePage.tsx";
+import { UnauthenticatedApp } from "./UnauthenticatedApp.tsx";
 
 export const AuthenticatedApp = () => {
-	const user = useSelector((state: RootState) => state.users.user);
-	const isUserLoggedIn = () => Boolean(user);
+	const token = useSelector((state: RootState) => state.users.accessToken);
+
+	const isUserLoggedIn = () => Boolean(token);
 
 	return (
 		<Routes>
 			{isUserLoggedIn() ? (
 				<>
-					<Route path="/" element={<Homepage />} />
+					<Route path="*" element={<Homepage />} />
 					<Route path="/profile" element={<ProfilePage />} />
 				</>
 			) : (
-				<Navigate to="/login" replace={true} />
+				<UnauthenticatedApp />
 			)}
 		</Routes>
 	);

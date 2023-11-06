@@ -7,7 +7,10 @@ export const UsernameButton = () => {
 	const navigate = useNavigate();
 
 	return (
-		<button onClick={() => navigate("/profile")} className="font-bold uppercase text-zinc-900">
+		<button
+			onClick={() => navigate("/profile")}
+			className="hidden font-bold uppercase text-zinc-900 sm:block"
+		>
 			{username}
 		</button>
 	);

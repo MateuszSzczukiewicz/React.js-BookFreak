@@ -1,21 +1,24 @@
-import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../api/users/RegisterUserAPI.ts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpSchema, SignUpSchemaType } from "../../../types/signUpSchema.type.ts";
+import { UserFormType } from "../../../types/user.type.ts";
 
 export const RegisterForm = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [passwordConfirmation, setPasswordConfirmation] = useState("");
 	const navigate = useNavigate();
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<SignUpSchemaType>({
+		resolver: zodResolver(signUpSchema),
+	});
 
-	const handleRegistration = async () => {
+	const onSubmit = async ({ username, password }: UserFormType) => {
 		try {
-			if (password === passwordConfirmation) {
-				await registerUser(username, password);
-				navigate("/login");
-			} else {
-				console.error("Passwords do not match");
-			}
+			await registerUser(username, password);
+			navigate("/login");
 		} catch (e) {
 			console.error("Registration Error:", e);
 		}
@@ -23,50 +26,67 @@ export const RegisterForm = () => {
 
 	return (
 		<div className="w-full max-w-2xl">
-			<form className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
+			>
 				<div className="mb-4">
 					<label className="mb-2 block text-sm font-bold text-gray-700">Adres e-mail</label>
-					<input
-						className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-						id="username"
-						type="text"
-						placeholder="Adres e-mail"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						autoComplete="username"
+					<Controller
+						name="username"
+						control={control}
+						render={({ field }) => (
+							<input
+								{...field}
+								className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+								type="text"
+								placeholder="Adres e-mail"
+								autoComplete="username"
+							/>
+						)}
 					/>
+					{errors.username && <p className="text-xs italic text-red-500">E-mail jest wymagany!</p>}
 				</div>
 				<div className="mb-4">
 					<label className="mb-2 block text-sm font-bold text-gray-700">Hasło</label>
-					<input
-						className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-						id="password"
-						type="password"
-						placeholder="Hasło"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						autoComplete="new-password"
+					<Controller
+						name="password"
+						control={control}
+						render={({ field }) => (
+							<input
+								{...field}
+								className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+								type="password"
+								placeholder="Hasło"
+								autoComplete="new-password"
+							/>
+						)}
 					/>
-					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
+					{errors.password && <p className="text-xs italic text-red-500">Hasło jest wymagane!</p>}
 				</div>
 				<div className="mb-6">
 					<label className="mb-2 block text-sm font-bold text-gray-700">Powtórz hasło</label>
-					<input
-						className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-						id="passwordConfirmation"
-						type="password"
-						placeholder="Powtórz hasło"
-						value={passwordConfirmation}
-						onChange={(e) => setPasswordConfirmation(e.target.value)}
-						autoComplete="new-password"
+					<Controller
+						name="passwordConfirmation"
+						control={control}
+						render={({ field }) => (
+							<input
+								{...field}
+								className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+								type="password"
+								placeholder="Powtórz hasło"
+								autoComplete="new-password"
+							/>
+						)}
 					/>
-					{/*<p className="text-xs italic text-red-500">Please choose a password.</p>*/}
+					{errors.passwordConfirmation && (
+						<p className="text-xs italic text-red-500">Powtórzone hasło jest wymagane!</p>
+					)}
 				</div>
 				<div className="flex items-center justify-between">
 					<button
-						onClick={handleRegistration}
 						className="focus:shadow-outline rounded bg-zinc-700 px-4 py-2 font-bold text-white focus:outline-none"
-						type="button"
+						type="submit"
 					>
 						Utwórz konto
 					</button>

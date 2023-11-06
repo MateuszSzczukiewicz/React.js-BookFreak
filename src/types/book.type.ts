@@ -3,3 +3,8 @@ export type BookType = {
 	title: string;
 	author: string;
 };
+
+export type BookFormType = {
+	newTitle: string;
+	newAuthor: string;
+};

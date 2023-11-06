@@ -1,11 +1,10 @@
-import { NavBar } from "../components/organisms/NavBar/NavBar.tsx";
 import { BookShelf } from "../components/organisms/BookShelf/BookShelf.tsx";
+import { AuthenticatedAppTemplate } from "../components/Templates/AuthenticatedAppTemplate/AuthenticatedAppTemplate.tsx";
 
 export const Homepage = () => {
 	return (
-		<>
-			<NavBar />
+		<AuthenticatedAppTemplate>
 			<BookShelf />
-		</>
+		</AuthenticatedAppTemplate>
 	);
 };
