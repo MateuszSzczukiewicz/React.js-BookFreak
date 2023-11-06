@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { BookInputFormType } from "../../../types/bookInputForm.type.ts";
+import { BookFormType } from "../../../types/book.type.ts";
+import { bookFormSchema, BookFormSchemaType } from "../../../types/bookFormSchema.type.ts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { XMark } from "../../../assets/icons/x-mark.tsx";
 
 export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormType) => {
-	const [newTitle, setNewTitle] = useState<string>("");
-	const [newAuthor, setNewAuthor] = useState<string>("");
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<BookFormSchemaType>({
+		resolver: zodResolver(bookFormSchema),
+	});
 
-	const handleAccept = () => {
+	const handleAccept = ({ newTitle, newAuthor }: BookFormType) => {
 		onFormSubmit(newTitle, newAuthor);
-
-		setNewTitle("");
-		setNewAuthor("");
 	};
 
 	const handleDeny = () => {
@@ -22,50 +28,56 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 				className="absolute left-0 top-0 flex h-screen w-screen bg-slate-100/20 opacity-90 backdrop-blur-3xl backdrop-filter"
 				onClick={handleDeny}
 			></div>
-			<div className="absolute left-1/2 top-1/2 flex h-80 w-[40rem] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center rounded-lg bg-white shadow-lg">
-				<button className="self-end" onClick={handleDeny}>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="mr-2 mt-2 h-8 w-8"
-					>
-						<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-					</svg>
+			<div className="absolute left-1/2 top-1/2 flex h-96 w-[40rem] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center rounded-lg bg-white shadow-lg">
+				<button className="m-2 scale-125 self-end" onClick={handleDeny}>
+					<XMark />
 				</button>
-				<div className="mb-4">
-					<label className="mb-2 block text-sm font-bold text-gray-700">Tytuł książki:</label>
-					<input
-						className="focus:shadow-outline w-[20rem] appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow"
-						id="title"
-						type="text"
-						placeholder="Wpisz tytuł..."
-						value={newTitle}
-						onChange={(e) => setNewTitle(e.target.value)}
-					/>
-				</div>
-				<div className="mb-6">
-					<label className="mb-2 block text-sm font-bold text-gray-700">Autor książki:</label>
-					<input
-						className="focus:shadow-outline mb-3 w-[20rem] appearance-none rounded border px-3 py-2 leading-tight text-zinc-700 shadow"
-						id="author"
-						type="text"
-						placeholder="Wpisz autora..."
-						value={newAuthor}
-						onChange={(e) => setNewAuthor(e.target.value)}
-					/>
-				</div>
-				<div className="flex items-center justify-between">
-					<button
-						className="transform rounded bg-zinc-800 px-8 py-4 uppercase text-white transition"
-						type="button"
-						onClick={handleAccept}
-					>
-						Dodaj
-					</button>
-				</div>
+				<form onSubmit={handleSubmit(handleAccept)}>
+					<div className="mb-4">
+						<label className="mb-2 block text-sm font-bold text-gray-700">Tytuł książki:</label>
+						<Controller
+							name="newTitle"
+							control={control}
+							render={({ field }) => (
+								<input
+									{...field}
+									className="focus:shadow-outline w-[20rem] appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow"
+									id="title"
+									type="text"
+									placeholder="Wpisz tytuł..."
+								/>
+							)}
+						/>
+						{errors.newTitle && <p className="text-xs italic text-red-500">Tytuł jest wymagany!</p>}
+					</div>
+					<div className="mb-6">
+						<label className="mb-2 block text-sm font-bold text-gray-700">Autor książki:</label>
+						<Controller
+							name="newAuthor"
+							control={control}
+							render={({ field }) => (
+								<input
+									{...field}
+									className="focus:shadow-outline mb-3 w-[20rem] appearance-none rounded border px-3 py-2 leading-tight text-zinc-700 shadow"
+									id="author"
+									type="text"
+									placeholder="Wpisz autora..."
+								/>
+							)}
+						/>
+						{errors.newAuthor && (
+							<p className="text-xs italic text-red-500">Autor jest wymagany!</p>
+						)}
+					</div>
+					<div className="flex">
+						<button
+							className="mx-auto transform rounded bg-zinc-800 px-8 py-4 uppercase text-white transition"
+							type="submit"
+						>
+							Dodaj
+						</button>
+					</div>
+				</form>
 			</div>
 		</>
 	);
