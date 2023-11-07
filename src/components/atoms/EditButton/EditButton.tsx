@@ -14,8 +14,16 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = (title: string, author: string) => {
-		dispatch(editBooks({ _id, title, author }));
+	const handleFormSubmit = (
+		newTitle: string,
+		newAuthor: string,
+		newBookImage: string | ArrayBuffer | null | undefined,
+	) => {
+		if (newBookImage) {
+			dispatch(editBooks({ _id, title: newTitle, author: newAuthor, bookImage: newBookImage }));
+		} else {
+			dispatch(editBooks({ _id, title: newTitle, author: newAuthor, bookImage: null }));
+		}
 		setIsFormVisible(false);
 		toggleTools();
 	};

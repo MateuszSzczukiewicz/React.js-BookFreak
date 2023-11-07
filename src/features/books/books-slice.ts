@@ -11,19 +11,19 @@ export const fetchBooks = createAsyncThunk<BookType[]>("books/fetchBooks", async
 	return await getBooks();
 });
 
-export const addBooks = createAsyncThunk<BookType, { title: string; author: string }>(
-	"books/addBook",
-	async ({ title, author }) => {
-		return await addBook(title, author);
-	},
-);
+export const addBooks = createAsyncThunk<
+	BookType,
+	{ title: string; author: string; bookImage: string | ArrayBuffer | null }
+>("books/addBook", async ({ title, author, bookImage }) => {
+	return await addBook(title, author, bookImage);
+});
 
-export const editBooks = createAsyncThunk<BookType, { _id: string; title: string; author: string }>(
-	"books/editBook",
-	async ({ _id, title, author }) => {
-		return await editBook(_id, title, author);
-	},
-);
+export const editBooks = createAsyncThunk<
+	BookType,
+	{ _id: string; title: string; author: string; bookImage: string | ArrayBuffer | null }
+>("books/editBook", async ({ _id, title, author, bookImage }) => {
+	return await editBook(_id, title, author, bookImage);
+});
 
 export const deleteBooks = createAsyncThunk<BookType, { _id: string }>(
 	"books/deleteBook",
