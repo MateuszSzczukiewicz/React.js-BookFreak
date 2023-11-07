@@ -13,8 +13,16 @@ export const AddBook = () => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = async (title: string, author: string) => {
-		dispatch(addBooks({ title, author }));
+	const handleFormSubmit = async (
+		newTitle: string,
+		newAuthor: string,
+		newBookImage: string | ArrayBuffer | null | undefined,
+	) => {
+		if (newBookImage) {
+			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: newBookImage }));
+		} else {
+			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: null }));
+		}
 		setIsFormVisible(false);
 	};
 
@@ -23,7 +31,7 @@ export const AddBook = () => {
 			{isFormVisible ? (
 				<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
 			) : (
-				<button onClick={handleAdd}>{PlusCircle()}</button>
+				<button onClick={handleAdd}>{<PlusCircle />}</button>
 			)}
 		</div>
 	);
