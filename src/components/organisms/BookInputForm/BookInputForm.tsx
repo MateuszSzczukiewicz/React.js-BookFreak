@@ -37,10 +37,10 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 	return (
 		<>
 			<div
-				className="absolute left-0 top-0 z-50 flex h-screen w-screen bg-slate-100/20 opacity-90 backdrop-blur-3xl backdrop-filter"
+				className="fixed left-0 top-0 z-50 flex h-screen w-screen bg-slate-100/20 opacity-90 backdrop-blur-3xl backdrop-filter"
 				onClick={handleDeny}
 			></div>
-			<div className="absolute left-1/2 top-1/2 z-50 flex w-[40rem] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center rounded-lg bg-white shadow-lg">
+			<div className="fixed left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center rounded-lg bg-white p-4 shadow-lg md:w-[40rem]">
 				<button className="m-2 scale-125 self-end" onClick={handleDeny}>
 					<XMark />
 				</button>
