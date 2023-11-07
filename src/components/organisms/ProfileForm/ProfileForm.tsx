@@ -35,7 +35,7 @@ export const ProfileForm = () => {
 		<div className="w-full max-w-2xl">
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className="mb-4 flex flex-col rounded bg-white px-8 pb-8 pt-6 shadow-md"
+				className="mb-4 flex flex-col rounded bg-white px-8 pb-8 shadow-md sm:pt-6"
 			>
 				<h2 className="mx-auto mb-4 text-xl font-semibold uppercase">Zmień hasło</h2>
 				<div className="mb-4">
