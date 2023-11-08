@@ -5,7 +5,7 @@ export const deleteBook = async (_id: string, userId: string) => {
 	try {
 		const response = await axios.delete(url);
 		return response.data;
-	} catch (e) {
-		console.error("Error deleting book:", e);
+	} catch (err) {
+		console.error("Error deleting book:", err);
 	}
 };

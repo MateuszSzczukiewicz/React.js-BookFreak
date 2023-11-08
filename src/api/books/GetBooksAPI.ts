@@ -7,8 +7,8 @@ export const getBooks = async (userId: string): Promise<BookType[]> => {
 	try {
 		const response: AxiosResponse<BookType[]> = await axios.get(url, { userId });
 		return [...response.data];
-	} catch (e) {
-		console.error("Error getting books:", e);
+	} catch (err) {
+		console.error("Error getting books:", err);
 		return [];
 	}
 };

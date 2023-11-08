@@ -15,7 +15,7 @@ export const addBook = async (
 		});
 		console.log("response:", response);
 		return response.data;
-	} catch (e) {
-		console.error("Error adding book:", e);
+	} catch (err) {
+		console.error("Error adding book:", err);
 	}
 };

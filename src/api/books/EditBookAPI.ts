@@ -15,7 +15,7 @@ export const editBook = async (
 			bookImage,
 		});
 		return response.data;
-	} catch (e) {
-		console.error("Error edit book:", e);
+	} catch (err) {
+		console.error("Error editing book:", err);
 	}
 };

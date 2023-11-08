@@ -60,8 +60,8 @@ export const booksSlice = createSlice({
 		});
 
 		builder.addCase(deleteBooks.fulfilled, (state, action: PayloadAction<BookType>) => {
-			const index = state.findIndex((book) => book._id === action.payload._id);
-			state.splice(index, 1);
+			const deletedBookId = action.payload._id;
+			return state.filter((book) => book._id !== deletedBookId);
 		});
 	},
 });
