@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export const loginUser = async (username: string, password: string) => {
+	const url = `${import.meta.env.VITE_API_KEY}/login`;
 	try {
-		const response = await axios.post(import.meta.env.VITE_LOGIN_API_URL, {
+		const response = await axios.post(url, {
 			username,
 			password,
 		});
@@ -14,8 +15,8 @@ export const loginUser = async (username: string, password: string) => {
 			console.error("Unexpected response status:", response.status);
 			return { success: false };
 		}
-	} catch (e) {
-		console.error("Error logging user:", e);
+	} catch (err) {
+		console.error("Error logging user:", err);
 		return { success: false };
 	}
 };

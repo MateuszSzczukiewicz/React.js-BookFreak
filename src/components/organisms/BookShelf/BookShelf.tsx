@@ -9,10 +9,11 @@ import { RootDispatch, RootState } from "../../../store";
 export const BookShelf: FC = () => {
 	const dispatch = useDispatch<RootDispatch>();
 	const books = useSelector((state: RootState) => state.books);
+	const userId = useSelector((state: RootState) => state.users.user?.id);
 
 	useEffect(() => {
-		dispatch(fetchBooks());
-	}, [dispatch]);
+		dispatch(fetchBooks({ userId }));
+	}, [dispatch, userId]);
 
 	return (
 		<main className="mx-auto my-20 grid grid-cols-1 justify-around gap-10 sm:grid-cols-2 md:grid-cols-3 lg:mx-48 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">

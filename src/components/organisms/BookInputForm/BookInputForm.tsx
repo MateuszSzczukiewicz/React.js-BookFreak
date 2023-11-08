@@ -52,6 +52,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 						<Controller
 							name="newTitle"
 							control={control}
+							defaultValue=""
 							render={({ field }) => (
 								<input
 									{...field}
@@ -71,6 +72,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 						<Controller
 							name="newAuthor"
 							control={control}
+							defaultValue=""
 							render={({ field }) => (
 								<input
 									{...field}
