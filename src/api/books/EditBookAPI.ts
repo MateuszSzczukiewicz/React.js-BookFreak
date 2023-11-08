@@ -5,9 +5,11 @@ export const editBook = async (
 	title: string,
 	author: string,
 	bookImage: string | ArrayBuffer | null,
+	userId: string,
 ) => {
+	const url = `${import.meta.env.VITE_API_KEY}/profile/${userId}/books/${_id}`;
 	try {
-		const response = await axios.put(import.meta.env.VITE_BOOKS_API_URL + `/${_id}`, {
+		const response = await axios.put(url, {
 			title,
 			author,
 			bookImage,

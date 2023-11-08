@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editBooks } from "../../../features/books/books-slice";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { RootDispatch } from "../../../store";
+import { RootDispatch, RootState } from "../../../store";
 import { DeleteAndEditType } from "../../../types/tool.type.ts";
 
 export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 	const dispatch = useDispatch<RootDispatch>();
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
+	const userId = useSelector((state: RootState) => state.users.user?.id);
 
 	const handleEdit = () => {
 		setIsFormVisible(true);
@@ -20,9 +21,11 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 		newBookImage: string | ArrayBuffer | null | undefined,
 	) => {
 		if (newBookImage) {
-			dispatch(editBooks({ _id, title: newTitle, author: newAuthor, bookImage: newBookImage }));
+			dispatch(
+				editBooks({ _id, title: newTitle, author: newAuthor, bookImage: newBookImage, userId }),
+			);
 		} else {
-			dispatch(editBooks({ _id, title: newTitle, author: newAuthor, bookImage: null }));
+			dispatch(editBooks({ _id, title: newTitle, author: newAuthor, bookImage: null, userId }));
 		}
 		setIsFormVisible(false);
 		toggleTools();

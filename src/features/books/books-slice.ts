@@ -7,28 +7,37 @@ import { deleteBook } from "../../api/books/DeleteBookAPI.ts";
 
 const initialState: BookType[] = [];
 
-export const fetchBooks = createAsyncThunk<BookType[]>("books/fetchBooks", async () => {
-	return await getBooks();
-});
+export const fetchBooks = createAsyncThunk<BookType[], { userId: string }>(
+	"books/fetchBooks",
+	async ({ userId }) => {
+		return await getBooks(userId);
+	},
+);
 
 export const addBooks = createAsyncThunk<
 	BookType,
-	{ title: string; author: string; bookImage: string | ArrayBuffer | null }
->("books/addBook", async ({ title, author, bookImage }) => {
-	return await addBook(title, author, bookImage);
+	{ title: string; author: string; bookImage: string | ArrayBuffer | null; userId: string }
+>("books/addBook", async ({ title, author, bookImage, userId }) => {
+	return await addBook(title, author, bookImage, userId);
 });
 
 export const editBooks = createAsyncThunk<
 	BookType,
-	{ _id: string; title: string; author: string; bookImage: string | ArrayBuffer | null }
->("books/editBook", async ({ _id, title, author, bookImage }) => {
-	return await editBook(_id, title, author, bookImage);
+	{
+		_id: string;
+		title: string;
+		author: string;
+		bookImage: string | ArrayBuffer | null;
+		userId: string;
+	}
+>("books/editBook", async ({ _id, title, author, bookImage, userId }) => {
+	return await editBook(_id, title, author, bookImage, userId);
 });
 
-export const deleteBooks = createAsyncThunk<BookType, { _id: string }>(
+export const deleteBooks = createAsyncThunk<BookType, { _id: string; userId: string }>(
 	"books/deleteBook",
-	async ({ _id }) => {
-		return await deleteBook(_id);
+	async ({ _id, userId }) => {
+		return await deleteBook(_id, userId);
 	},
 );
 

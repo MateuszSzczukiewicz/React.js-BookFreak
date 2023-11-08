@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { PlusCircle } from "../../../assets/icons/plus-circle.tsx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBooks } from "../../../features/books/books-slice.ts";
-import { RootDispatch } from "../../../store";
+import { RootDispatch, RootState } from "../../../store";
 
 export const AddBook = () => {
 	const dispatch = useDispatch<RootDispatch>();
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
+	const userId = useSelector((state: RootState) => state.users.user?.id);
 
 	const handleAdd = (): void => {
 		setIsFormVisible(true);
@@ -19,9 +20,9 @@ export const AddBook = () => {
 		newBookImage: string | ArrayBuffer | null | undefined,
 	) => {
 		if (newBookImage) {
-			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: newBookImage }));
+			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: newBookImage, userId }));
 		} else {
-			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: null }));
+			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: null, userId }));
 		}
 		setIsFormVisible(false);
 	};
