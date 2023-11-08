@@ -35,6 +35,7 @@ export const RegisterForm = () => {
 					<Controller
 						name="username"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}
@@ -52,6 +53,7 @@ export const RegisterForm = () => {
 					<Controller
 						name="password"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}
@@ -69,6 +71,7 @@ export const RegisterForm = () => {
 					<Controller
 						name="passwordConfirmation"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}

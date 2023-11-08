@@ -49,6 +49,7 @@ export const LoginForm = () => {
 					<Controller
 						name="username"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}
@@ -66,6 +67,7 @@ export const LoginForm = () => {
 					<Controller
 						name="password"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}

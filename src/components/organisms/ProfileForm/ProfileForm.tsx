@@ -43,6 +43,7 @@ export const ProfileForm = () => {
 					<Controller
 						name="password"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}
@@ -63,6 +64,7 @@ export const ProfileForm = () => {
 					<Controller
 						name="passwordConfirmation"
 						control={control}
+						defaultValue=""
 						render={({ field }) => (
 							<input
 								{...field}
