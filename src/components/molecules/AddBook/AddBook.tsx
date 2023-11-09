@@ -4,11 +4,12 @@ import { PlusCircle } from "../../../assets/icons/plus-circle.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks } from "../../../features/books/books-slice.ts";
 import { RootDispatch, RootState } from "../../../store";
+import { BookShelves } from "../../../types/bookShelves.enum.ts";
 
 export const AddBook = () => {
 	const dispatch = useDispatch<RootDispatch>();
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
-	const userId = useSelector((state: RootState) => state.users.user?.id);
+	const userId: string | undefined = useSelector((state: RootState) => state.users.user?.id);
 
 	const handleAdd = (): void => {
 		setIsFormVisible(true);
@@ -18,11 +19,22 @@ export const AddBook = () => {
 		newTitle: string,
 		newAuthor: string,
 		newBookImage: string | ArrayBuffer | null | undefined,
+		bookShelf: BookShelves,
 	) => {
 		if (newBookImage) {
-			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: newBookImage, userId }));
+			dispatch(
+				addBooks({
+					title: newTitle,
+					author: newAuthor,
+					bookImage: newBookImage,
+					userId,
+					bookShelf,
+				}),
+			);
 		} else {
-			dispatch(addBooks({ title: newTitle, author: newAuthor, bookImage: null, userId }));
+			dispatch(
+				addBooks({ title: newTitle, author: newAuthor, bookImage: null, userId, bookShelf }),
+			);
 		}
 		setIsFormVisible(false);
 	};
