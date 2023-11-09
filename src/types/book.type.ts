@@ -8,11 +8,9 @@ export type BookType = {
 	bookShelf: BookShelvesEnum;
 };
 
-export type SingleBookType = Omit<BookType, "bookShelf">;
-
 export type BookFormType = {
 	newTitle: string;
 	newAuthor: string;
-	newBookImage?: string | ArrayBuffer;
+	newBookImage?: string | ArrayBuffer | null;
 	newBookShelf: BookShelvesEnum;
 };

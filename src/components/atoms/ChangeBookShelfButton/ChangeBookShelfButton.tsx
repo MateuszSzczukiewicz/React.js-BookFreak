@@ -10,9 +10,14 @@ export const ChangeBookShelfButton = ({ _id, toggleTools, text, shelf }: ChangeB
 	const bookShelf = shelf;
 
 	const handleChange = () => {
-		dispatch(changeBooksShelf({ _id, userId, bookShelf }));
-		toggleTools();
+		if (userId) {
+			dispatch(changeBooksShelf({ _id, userId, bookShelf }));
+			toggleTools();
+		} else {
+			console.error("User ID is undefined");
+		}
 	};
+
 	return (
 		<>
 			<div onClick={handleChange}>

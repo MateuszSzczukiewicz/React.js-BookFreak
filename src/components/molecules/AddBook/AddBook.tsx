@@ -18,25 +18,35 @@ export const AddBook = () => {
 	const handleFormSubmit = async (
 		newTitle: string,
 		newAuthor: string,
-		newBookImage: string | ArrayBuffer | null | undefined,
+		newBookImage: string | ArrayBuffer | null,
 		bookShelf: BookShelvesEnum,
 	) => {
-		if (newBookImage) {
-			dispatch(
-				addBooks({
-					title: newTitle,
-					author: newAuthor,
-					bookImage: newBookImage,
-					userId,
-					bookShelf,
-				}),
-			);
+		if (userId) {
+			if (newBookImage) {
+				dispatch(
+					addBooks({
+						title: newTitle,
+						author: newAuthor,
+						bookImage: newBookImage,
+						userId,
+						bookShelf,
+					}),
+				);
+			} else {
+				dispatch(
+					addBooks({
+						title: newTitle,
+						author: newAuthor,
+						bookImage: null,
+						userId,
+						bookShelf,
+					}),
+				);
+			}
+			setIsFormVisible(false);
 		} else {
-			dispatch(
-				addBooks({ title: newTitle, author: newAuthor, bookImage: null, userId, bookShelf }),
-			);
+			console.error("User ID is undefined");
 		}
-		setIsFormVisible(false);
 	};
 
 	return (

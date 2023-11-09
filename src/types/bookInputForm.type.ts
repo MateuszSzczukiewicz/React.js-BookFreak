@@ -1,12 +1,7 @@
-import { BookShelvesEnum } from "./bookShelves.enum.ts";
+import { SubmitHandler } from "react-hook-form";
+import { BookFormType } from "./book.type.ts";
 
 export type BookInputFormType = {
-	onFormSubmit: (
-		newTitle: string,
-		newAuthor: string,
-		userId: string | null,
-		newBookShelf: BookShelvesEnum,
-		newBookImage?: string | ArrayBuffer | null,
-	) => void;
+	onFormSubmit: SubmitHandler<BookFormType>;
 	setIsFormVisible: (isVisible: boolean) => void;
 };

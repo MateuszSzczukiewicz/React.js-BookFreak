@@ -22,31 +22,35 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 		newBookImage: string | ArrayBuffer | null | undefined,
 		newBookShelf: BookShelvesEnum,
 	) => {
-		if (newBookImage) {
-			dispatch(
-				editBooks({
-					_id,
-					title: newTitle,
-					author: newAuthor,
-					bookImage: newBookImage,
-					bookShelf: newBookShelf,
-					userId,
-				}),
-			);
+		if (userId) {
+			if (newBookImage) {
+				dispatch(
+					editBooks({
+						_id,
+						title: newTitle,
+						author: newAuthor,
+						bookImage: newBookImage,
+						bookShelf: newBookShelf,
+						userId,
+					}),
+				);
+			} else {
+				dispatch(
+					editBooks({
+						_id,
+						title: newTitle,
+						author: newAuthor,
+						bookImage: null,
+						bookShelf: newBookShelf,
+						userId,
+					}),
+				);
+			}
+			setIsFormVisible(false);
+			toggleTools();
 		} else {
-			dispatch(
-				editBooks({
-					_id,
-					title: newTitle,
-					author: newAuthor,
-					bookImage: null,
-					bookShelf: newBookShelf,
-					userId,
-				}),
-			);
+			console.error("User ID is undefined");
 		}
-		setIsFormVisible(false);
-		toggleTools();
 	};
 
 	return (

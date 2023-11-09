@@ -19,7 +19,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 		resolver: zodResolver(bookFormSchema),
 	});
 
-	const handleAccept = ({ newTitle, newAuthor, newBookShelf }: BookFormType) => {
+	const handleAccept = ({ newTitle, newAuthor, newBookImage, newBookShelf }: BookFormType) => {
 		onFormSubmit(newTitle, newAuthor, newBookImage, newBookShelf);
 	};
 

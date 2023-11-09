@@ -6,7 +6,7 @@ export const editBook = async (
 	title: string,
 	author: string,
 	bookImage: string | ArrayBuffer | null,
-	userId: string,
+	userId: string | undefined,
 	bookShelf: BookShelvesEnum,
 ) => {
 	const url = `${import.meta.env.VITE_API_KEY}/profile/${userId}/books/${_id}`;
