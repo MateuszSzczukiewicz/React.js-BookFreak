@@ -4,7 +4,7 @@ import { PlusCircle } from "../../../assets/icons/plus-circle.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks } from "../../../features/books/books-slice.ts";
 import { RootDispatch, RootState } from "../../../store";
-import { BookShelves } from "../../../types/bookShelves.enum.ts";
+import { BookShelvesEn } from "../../../types/bookShelves.enum.ts";
 
 export const AddBook = () => {
 	const dispatch = useDispatch<RootDispatch>();
@@ -19,7 +19,7 @@ export const AddBook = () => {
 		newTitle: string,
 		newAuthor: string,
 		newBookImage: string | ArrayBuffer | null | undefined,
-		bookShelf: BookShelves,
+		bookShelf: BookShelvesEn,
 	) => {
 		if (newBookImage) {
 			dispatch(

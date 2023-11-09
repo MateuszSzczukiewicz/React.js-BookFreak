@@ -4,7 +4,7 @@ import { getBooks } from "../../api/books/GetBooksAPI.ts";
 import { addBook } from "../../api/books/AddBookAPI.ts";
 import { editBook } from "../../api/books/EditBookAPI.ts";
 import { deleteBook } from "../../api/books/DeleteBookAPI.ts";
-import { BookShelves } from "../../types/bookShelves.enum.ts";
+import { BookShelvesEnum } from "../../types/bookShelves.enum.ts";
 
 const initialState: BookType[] = [];
 
@@ -22,7 +22,7 @@ export const addBooks = createAsyncThunk<
 		author: string;
 		bookImage: string | ArrayBuffer | null;
 		userId: string;
-		bookShelf: BookShelves;
+		bookShelf: BookShelvesEnum;
 	}
 >("books/addBook", async ({ title, author, bookImage, userId, bookShelf }) => {
 	return await addBook(title, author, bookImage, userId, bookShelf);

@@ -1,19 +1,7 @@
 import { FC } from "react";
-import { BookShelves } from "../../../types/bookShelves.enum.ts";
+import { BookShelvesType } from "../../../types/bookShelves.type.ts";
 
-interface BookShelfButtonProps {
-	name: string;
-	shelf: BookShelves;
-	selectedShelf: BookShelves | null;
-	onClick: () => void;
-}
-
-export const BookShelfButton: FC<BookShelfButtonProps> = ({
-	name,
-	shelf,
-	selectedShelf,
-	onClick,
-}) => {
+export const BookShelfButton: FC<BookShelvesType> = ({ name, shelf, selectedShelf, onClick }) => {
 	const isActive = selectedShelf === shelf;
 
 	return (
