@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { XMark } from "../../../assets/icons/x-mark.tsx";
 import { ChangeEvent, useState } from "react";
 import { convertToBase64 } from "../../../utils/convertToBase64.ts";
+import { BookShelvesEnum } from "../../../types/bookShelves.enum.ts";
 
 export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormType) => {
 	const [newBookImage, setNewBookImage] = useState<string | null>(null);
@@ -18,8 +19,8 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 		resolver: zodResolver(bookFormSchema),
 	});
 
-	const handleAccept = ({ newTitle, newAuthor }: BookFormType) => {
-		onFormSubmit(newTitle, newAuthor, newBookImage);
+	const handleAccept = ({ newTitle, newAuthor, newBookImage, newBookShelf }: BookFormType) => {
+		onFormSubmit(newTitle, newAuthor, newBookImage, newBookShelf);
 	};
 
 	const handleDeny = () => {
@@ -65,7 +66,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 						/>
 						{errors.newTitle && <p className="text-xs italic text-red-500">Tytuł jest wymagany!</p>}
 					</div>
-					<div className="mb-4 flex flex-col">
+					<div className=" flex flex-col">
 						<label className="mx-auto mb-2 block text-sm font-bold text-gray-700">
 							Autor książki:
 						</label>
@@ -86,6 +87,24 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 						{errors.newAuthor && (
 							<p className="text-xs italic text-red-500">Autor jest wymagany!</p>
 						)}
+					</div>
+					<div className="mb-4 flex flex-col">
+						<label className="mx-auto mb-2 block text-sm font-bold text-gray-700">Półka:</label>
+						<Controller
+							name="newBookShelf"
+							control={control}
+							defaultValue=""
+							render={({ field }) => (
+								<select
+									{...field}
+									className="focus:shadow-outline w-[20rem] appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow"
+								>
+									<option value={BookShelvesEnum.READING}>Czytane</option>
+									<option value={BookShelvesEnum.READ}>Przeczytane</option>
+									<option value={BookShelvesEnum.WANT_TO_READ}>Do przeczytania</option>
+								</select>
+							)}
+						/>
 					</div>
 					{newBookImage ? (
 						<div className="mb-4 flex flex-col">
@@ -126,7 +145,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 					)}
 					<div className="flex">
 						<button
-							className="mx-auto mb-4 transform rounded bg-zinc-800 px-8 py-4 uppercase text-white transition"
+							className="mx-auto mb-4 transform rounded bg-green-900 px-8 py-4 uppercase text-white transition hover:bg-green-950"
 							type="submit"
 						>
 							Dodaj

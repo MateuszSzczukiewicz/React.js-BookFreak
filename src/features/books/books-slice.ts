@@ -4,10 +4,11 @@ import { getBooks } from "../../api/books/GetBooksAPI.ts";
 import { addBook } from "../../api/books/AddBookAPI.ts";
 import { editBook } from "../../api/books/EditBookAPI.ts";
 import { deleteBook } from "../../api/books/DeleteBookAPI.ts";
-
+import { changeBookShelf } from "../../api/books/ChangeBookShelfAPI.ts";
+import { BookShelvesEnum } from "../../types/bookShelves.enum.ts";
 const initialState: BookType[] = [];
 
-export const fetchBooks = createAsyncThunk<BookType[], { userId: string }>(
+export const fetchBooks = createAsyncThunk<BookType[], { userId: string | undefined }>(
 	"books/fetchBooks",
 	async ({ userId }) => {
 		return await getBooks(userId);
@@ -16,9 +17,15 @@ export const fetchBooks = createAsyncThunk<BookType[], { userId: string }>(
 
 export const addBooks = createAsyncThunk<
 	BookType,
-	{ title: string; author: string; bookImage: string | ArrayBuffer | null; userId: string }
->("books/addBook", async ({ title, author, bookImage, userId }) => {
-	return await addBook(title, author, bookImage, userId);
+	{
+		title: string;
+		author: string;
+		bookImage: string | ArrayBuffer | null;
+		userId: string;
+		bookShelf: BookShelvesEnum;
+	}
+>("books/addBook", async ({ title, author, bookImage, userId, bookShelf }) => {
+	return await addBook(title, author, bookImage, userId, bookShelf);
 });
 
 export const editBooks = createAsyncThunk<
@@ -29,9 +36,10 @@ export const editBooks = createAsyncThunk<
 		author: string;
 		bookImage: string | ArrayBuffer | null;
 		userId: string;
+		bookShelf: BookShelvesEnum;
 	}
->("books/editBook", async ({ _id, title, author, bookImage, userId }) => {
-	return await editBook(_id, title, author, bookImage, userId);
+>("books/editBook", async ({ _id, title, author, bookImage, userId, bookShelf }) => {
+	return await editBook(_id, title, author, bookImage, userId, bookShelf);
 });
 
 export const deleteBooks = createAsyncThunk<BookType, { _id: string; userId: string }>(
@@ -40,6 +48,13 @@ export const deleteBooks = createAsyncThunk<BookType, { _id: string; userId: str
 		return await deleteBook(_id, userId);
 	},
 );
+
+export const changeBooksShelf = createAsyncThunk<
+	BookType,
+	{ _id: string; userId: string; bookShelf: BookShelvesEnum }
+>("books/changeBookShelf", async ({ _id, userId, bookShelf }) => {
+	return changeBookShelf(_id, userId, bookShelf);
+});
 
 export const booksSlice = createSlice({
 	name: "books",
@@ -62,6 +77,11 @@ export const booksSlice = createSlice({
 		builder.addCase(deleteBooks.fulfilled, (state, action: PayloadAction<BookType>) => {
 			const deletedBookId = action.payload._id;
 			return state.filter((book) => book._id !== deletedBookId);
+		});
+
+		builder.addCase(changeBooksShelf.fulfilled, (state, action: PayloadAction<BookType>) => {
+			const index = state.findIndex((book) => book._id === action.payload._id);
+			state[index] = action.payload;
 		});
 	},
 });
