@@ -4,7 +4,7 @@ import { SettingsButton } from "../../atoms/SettingsButton/SettingsButton.tsx";
 import { BookType } from "../../../types/book.type.ts";
 import { Photo } from "../../../assets/icons/photo.tsx";
 
-export const SingleBook = ({ title, author, _id, bookImage }: BookType) => {
+export const SingleBook = ({ title, author, _id, bookImage, bookShelf }: BookType) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const toggleTools = (): void => {
@@ -14,7 +14,7 @@ export const SingleBook = ({ title, author, _id, bookImage }: BookType) => {
 	return (
 		<>
 			{isOpen ? (
-				<Tools isOpen={isOpen} _id={_id} toggleTools={toggleTools} />
+				<Tools isOpen={isOpen} _id={_id} toggleTools={toggleTools} bookShelf={bookShelf} />
 			) : (
 				<div className="relative max-w-md">
 					<div className="relative mx-auto flex h-56 w-44 flex-col rounded-2xl bg-zinc-200 text-2xl shadow-lg">

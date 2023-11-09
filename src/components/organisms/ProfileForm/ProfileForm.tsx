@@ -82,7 +82,7 @@ export const ProfileForm = () => {
 				</div>
 				<div className="flex items-center justify-between">
 					<button
-						className="focus:shadow-outline mx-auto rounded bg-zinc-700 px-4 py-2 font-bold text-white focus:outline-none"
+						className="focus:shadow-outline mx-auto rounded bg-green-900 px-4 py-2 font-bold text-white transition hover:bg-green-950 focus:outline-none"
 						type="submit"
 					>
 						Zapisz zmiany

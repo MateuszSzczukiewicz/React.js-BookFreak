@@ -5,6 +5,7 @@ import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
 import { RootDispatch, RootState } from "../../../store";
 import { DeleteAndEditType } from "../../../types/tool.type.ts";
+import { BookShelvesEnum } from "../../../types/bookShelves.enum.ts";
 
 export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 	const dispatch = useDispatch<RootDispatch>();
@@ -19,16 +20,37 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 		newTitle: string,
 		newAuthor: string,
 		newBookImage: string | ArrayBuffer | null | undefined,
+		newBookShelf: BookShelvesEnum,
 	) => {
-		if (newBookImage) {
-			dispatch(
-				editBooks({ _id, title: newTitle, author: newAuthor, bookImage: newBookImage, userId }),
-			);
+		if (userId) {
+			if (newBookImage) {
+				dispatch(
+					editBooks({
+						_id,
+						title: newTitle,
+						author: newAuthor,
+						bookImage: newBookImage,
+						bookShelf: newBookShelf,
+						userId,
+					}),
+				);
+			} else {
+				dispatch(
+					editBooks({
+						_id,
+						title: newTitle,
+						author: newAuthor,
+						bookImage: null,
+						bookShelf: newBookShelf,
+						userId,
+					}),
+				);
+			}
+			setIsFormVisible(false);
+			toggleTools();
 		} else {
-			dispatch(editBooks({ _id, title: newTitle, author: newAuthor, bookImage: null, userId }));
+			console.error("User ID is undefined");
 		}
-		setIsFormVisible(false);
-		toggleTools();
 	};
 
 	return (
