@@ -8,7 +8,7 @@ export const BookShelfButton: FC<BookShelvesType> = ({ name, shelf, selectedShel
 		<button
 			onClick={onClick}
 			className={`w-44 rounded-xl p-2 font-semibold uppercase shadow-xl transition focus:border-zinc-900 ${
-				isActive ? "bg-gray-300 text-zinc-600" : "bg-zinc-500 text-zinc-50"
+				isActive ? "bg-green-800 text-zinc-50" : "bg-green-100 text-zinc-600"
 			}`}
 		>
 			{name}

@@ -27,7 +27,10 @@ export const DeleteAccountButton = () => {
 	};
 
 	return (
-		<button onClick={handleDeleteAccount} className="mt-4 font-semibold uppercase text-red-950">
+		<button
+			onClick={handleDeleteAccount}
+			className="mt-4 font-semibold text-red-900 transition hover:text-red-950"
+		>
 			Usuń konto
 		</button>
 	);

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BookShelvesEnum } from "../../types/bookShelves.enum.ts";
 
 export const editBook = async (
 	_id: string,
@@ -6,6 +7,7 @@ export const editBook = async (
 	author: string,
 	bookImage: string | ArrayBuffer | null,
 	userId: string,
+	bookShelf: BookShelvesEnum,
 ) => {
 	const url = `${import.meta.env.VITE_API_KEY}/profile/${userId}/books/${_id}`;
 	try {
@@ -13,6 +15,7 @@ export const editBook = async (
 			title,
 			author,
 			bookImage,
+			bookShelf,
 		});
 		return response.data;
 	} catch (err) {

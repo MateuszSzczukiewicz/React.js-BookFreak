@@ -1,7 +1,7 @@
 import { useEffect, FC, useState } from "react";
 import { SingleBook } from "../../molecules/SingleBook/SingleBook.tsx";
 import { AddBook } from "../../molecules/AddBook/AddBook.tsx";
-import { BookType, SingleBookType } from "../../../types/book.type.ts";
+import { BookType } from "../../../types/book.type.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../../features/books/books-slice.ts";
 import { RootDispatch, RootState } from "../../../store";
@@ -26,7 +26,7 @@ export const BookShelf: FC = () => {
 
 	return (
 		<div className="flex flex-col">
-			<div className="mt-6 hidden h-14 w-full items-center justify-around sm:flex lg:justify-center lg:gap-40">
+			<div className="mt-16 flex h-14 w-full flex-col items-center justify-around gap-4 sm:flex-row lg:justify-center lg:gap-40">
 				<BookShelfButton
 					name="Teraz czytam"
 					shelf={BookShelvesEnum.READING}
@@ -49,13 +49,14 @@ export const BookShelf: FC = () => {
 			<main className="mx-auto my-20 grid grid-cols-1 justify-around gap-10 sm:grid-cols-2 md:grid-cols-3 lg:mx-48 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
 				{books
 					.filter((book: BookType) => (selectedShelf ? book.bookShelf === selectedShelf : true))
-					.map((book: SingleBookType, index: number) => (
+					.map((book: BookType, index: number) => (
 						<SingleBook
 							key={index}
 							_id={book._id}
 							title={book.title}
 							author={book.author}
 							bookImage={book.bookImage}
+							bookShelf={book.bookShelf}
 						/>
 					))}
 				<AddBook />

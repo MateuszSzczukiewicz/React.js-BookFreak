@@ -93,7 +93,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 						<Controller
 							name="newBookShelf"
 							control={control}
-							defaultValue={BookShelvesEnum.READING}
+							defaultValue=""
 							render={({ field }) => (
 								<select
 									{...field}
@@ -145,7 +145,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 					)}
 					<div className="flex">
 						<button
-							className="mx-auto mb-4 transform rounded bg-zinc-800 px-8 py-4 uppercase text-white transition"
+							className="mx-auto mb-4 transform rounded bg-green-900 px-8 py-4 uppercase text-white transition hover:bg-green-950"
 							type="submit"
 						>
 							Dodaj
