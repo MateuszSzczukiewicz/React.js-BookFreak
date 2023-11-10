@@ -1,12 +1,11 @@
 import axios from "axios";
-import { BookShelvesEnum } from "../../types/bookShelves.enum.ts";
 
 export const addBook = async (
 	title: string,
 	author: string,
 	bookImage: string | ArrayBuffer | null,
 	userId: string,
-	bookShelf: BookShelvesEnum,
+	bookShelf: string,
 ) => {
 	const url = `${import.meta.env.VITE_API_KEY}/profile/${userId}/books`;
 	try {

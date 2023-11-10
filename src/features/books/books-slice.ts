@@ -5,7 +5,6 @@ import { addBook } from "../../api/books/AddBookAPI.ts";
 import { editBook } from "../../api/books/EditBookAPI.ts";
 import { deleteBook } from "../../api/books/DeleteBookAPI.ts";
 import { changeBookShelf } from "../../api/books/ChangeBookShelfAPI.ts";
-import { BookShelvesEnum } from "../../types/bookShelves.enum.ts";
 const initialState: BookType[] = [];
 
 export const fetchBooks = createAsyncThunk<BookType[], { userId: string | undefined }>(
@@ -22,7 +21,7 @@ export const addBooks = createAsyncThunk<
 		author: string;
 		bookImage: string | ArrayBuffer | null;
 		userId: string;
-		bookShelf: BookShelvesEnum;
+		bookShelf: string;
 	}
 >("books/addBook", async ({ title, author, bookImage, userId, bookShelf }) => {
 	return await addBook(title, author, bookImage, userId, bookShelf);
@@ -36,7 +35,7 @@ export const editBooks = createAsyncThunk<
 		author: string;
 		bookImage: string | ArrayBuffer | null;
 		userId: string;
-		bookShelf: BookShelvesEnum;
+		bookShelf: string;
 	}
 >("books/editBook", async ({ _id, title, author, bookImage, userId, bookShelf }) => {
 	return await editBook(_id, title, author, bookImage, userId, bookShelf);
@@ -51,7 +50,7 @@ export const deleteBooks = createAsyncThunk<BookType, { _id: string; userId: str
 
 export const changeBooksShelf = createAsyncThunk<
 	BookType,
-	{ _id: string; userId: string; bookShelf: BookShelvesEnum }
+	{ _id: string; userId: string; bookShelf: string }
 >("books/changeBookShelf", async ({ _id, userId, bookShelf }) => {
 	return changeBookShelf(_id, userId, bookShelf);
 });

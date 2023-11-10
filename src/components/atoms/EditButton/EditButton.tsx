@@ -5,7 +5,7 @@ import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
 import { RootDispatch, RootState } from "../../../store";
 import { DeleteAndEditType } from "../../../types/tool.type.ts";
-import { BookShelvesEnum } from "../../../types/bookShelves.enum.ts";
+import { BookFormType } from "../../../types/bookInputForm.type.ts";
 
 export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 	const dispatch = useDispatch<RootDispatch>();
@@ -16,40 +16,27 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 		setIsFormVisible(true);
 	};
 
-	const handleFormSubmit = (
-		newTitle: string,
-		newAuthor: string,
-		newBookImage: string | ArrayBuffer | null | undefined,
-		newBookShelf: BookShelvesEnum,
-	) => {
-		if (userId) {
-			if (newBookImage) {
-				dispatch(
+	const handleFormSubmit = async (data: BookFormType) => {
+		try {
+			if (userId) {
+				const { newTitle, newAuthor, newBookImage, newBookShelf } = data;
+				await dispatch(
 					editBooks({
 						_id,
 						title: newTitle,
 						author: newAuthor,
-						bookImage: newBookImage,
-						bookShelf: newBookShelf,
+						bookImage: newBookImage || null,
 						userId,
+						bookShelf: newBookShelf,
 					}),
 				);
+				setIsFormVisible(false);
+				toggleTools();
 			} else {
-				dispatch(
-					editBooks({
-						_id,
-						title: newTitle,
-						author: newAuthor,
-						bookImage: null,
-						bookShelf: newBookShelf,
-						userId,
-					}),
-				);
+				console.error("User ID is undefined");
 			}
-			setIsFormVisible(false);
-			toggleTools();
-		} else {
-			console.error("User ID is undefined");
+		} catch (error) {
+			console.error("Error editing book:", error);
 		}
 	};
 
@@ -59,8 +46,6 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 				<SingleTool text="Edytuj książkę" />
 			</div>
 			{isFormVisible && (
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
 				<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
 			)}
 		</>
