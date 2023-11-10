@@ -6,6 +6,7 @@ export const deleteUser = async (_id: string | undefined) => {
 		const response = await axios.delete(url);
 		return response.data;
 	} catch (err) {
-		console.error("Error getting user:", err);
+		console.error("Error deleting user:", err);
+		return { success: false, error: "Error deleting user" };
 	}
 };

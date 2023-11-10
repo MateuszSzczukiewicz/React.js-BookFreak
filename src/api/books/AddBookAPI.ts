@@ -16,7 +16,7 @@ export const addBook = async (
 			bookImage,
 			bookShelf,
 		});
-		console.log("response:", response);
+		console.log("bookImage:", bookImage);
 		return response.data;
 	} catch (err) {
 		console.error("Error adding book:", err);
