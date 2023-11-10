@@ -19,7 +19,7 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 		resolver: zodResolver(bookFormSchema),
 	});
 
-	const handleAccept = ({ newTitle, newAuthor, newBookImage, newBookShelf }: BookFormType) => {
+	const handleAccept = ({ newTitle, newAuthor, newBookShelf }: BookFormType) => {
 		onFormSubmit(newTitle, newAuthor, newBookImage, newBookShelf);
 	};
 
@@ -93,15 +93,20 @@ export const BookInputForm = ({ onFormSubmit, setIsFormVisible }: BookInputFormT
 						<Controller
 							name="newBookShelf"
 							control={control}
-							defaultValue=""
+							defaultValue={BookShelvesEnum.READING}
 							render={({ field }) => (
 								<select
 									{...field}
 									className="focus:shadow-outline w-[20rem] appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow"
 								>
-									<option value={BookShelvesEnum.READING}>Czytane</option>
+									<option
+										className="text-gray-700 hover:bg-zinc-500"
+										value={BookShelvesEnum.READING}
+									>
+										Teraz czytam
+									</option>
 									<option value={BookShelvesEnum.READ}>Przeczytane</option>
-									<option value={BookShelvesEnum.WANT_TO_READ}>Do przeczytania</option>
+									<option value={BookShelvesEnum.WANT_TO_READ}>Chcę przeczytać</option>
 								</select>
 							)}
 						/>

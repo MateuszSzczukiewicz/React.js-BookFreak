@@ -9,8 +9,12 @@ export const DeleteButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 	const userId = useSelector((state: RootState) => state.users.user?.id);
 
 	const handleDelete = async () => {
-		dispatch(deleteBooks({ _id, userId }));
-		toggleTools();
+		const isConfirmed = window.confirm("Czy na pewno chcesz usunąć tę książkę?");
+
+		if (userId && isConfirmed) {
+			dispatch(deleteBooks({ _id, userId }));
+			toggleTools();
+		}
 	};
 
 	return (
