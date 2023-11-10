@@ -1,5 +1,11 @@
 import { SubmitHandler } from "react-hook-form";
-import { BookFormType } from "./book.type.ts";
+
+export type BookFormType = {
+	newTitle: string;
+	newAuthor: string;
+	newBookImage?: string | ArrayBuffer | null;
+	newBookShelf: string;
+};
 
 export type BookInputFormType = {
 	onFormSubmit: SubmitHandler<BookFormType>;

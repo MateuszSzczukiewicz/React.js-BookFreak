@@ -4,13 +4,6 @@ export type BookType = {
 	_id: string;
 	title: string;
 	author: string;
-	bookImage?: string | ArrayBuffer;
+	bookImage: string | ArrayBuffer | null;
 	bookShelf: BookShelvesEnum;
-};
-
-export type BookFormType = {
-	newTitle: string;
-	newAuthor: string;
-	newBookImage?: string | ArrayBuffer | null;
-	newBookShelf: BookShelvesEnum;
 };
