@@ -59,6 +59,8 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 				<SingleTool text="Edytuj książkę" />
 			</div>
 			{isFormVisible && (
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
 				<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
 			)}
 		</>

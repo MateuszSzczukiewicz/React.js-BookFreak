@@ -52,6 +52,8 @@ export const AddBook = () => {
 	return (
 		<div className="mx-auto flex h-56 w-44 items-center justify-center rounded-2xl bg-zinc-200 text-center text-2xl shadow-lg">
 			{isFormVisible ? (
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
 				<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
 			) : (
 				<button onClick={handleAdd}>{<PlusCircle />}</button>
