@@ -55,7 +55,7 @@ export const LoginForm = () => {
 								{...field}
 								className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 								type="text"
-								placeholder="Adres e-mail"
+								placeholder="example@example.pl"
 								autoComplete="username"
 							/>
 						)}
@@ -73,7 +73,7 @@ export const LoginForm = () => {
 								{...field}
 								className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 								type="password"
-								placeholder="Hasło"
+								placeholder="1234567890"
 								autoComplete="current-password"
 							/>
 						)}

@@ -1,33 +1,29 @@
 import { useState } from "react";
 import { BookInputForm } from "../../organisms/BookInputForm/BookInputForm.tsx";
 import { PlusCircle } from "../../../assets/icons/plus-circle.tsx";
-import { useDispatch, useSelector } from "react-redux";
-import { addBooks } from "../../../features/books/books-slice.ts";
-import { RootDispatch, RootState } from "../../../store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 import { BookFormType } from "../../../types/bookInputForm.type";
+import { useAddBook } from "../../../hooks/useAddBook.ts";
 
 export const AddBook = () => {
-	const dispatch = useDispatch<RootDispatch>();
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
 	const userId: string | undefined = useSelector((state: RootState) => state.users.user?.id);
+	const addBookMutation = useAddBook();
 
-	const handleAdd = (): void => {
-		setIsFormVisible(true);
-	};
+	const handleAdd = (): void => setIsFormVisible(true);
 
 	const handleFormSubmit = async (data: BookFormType) => {
 		try {
 			if (userId) {
 				const { newTitle, newAuthor, newBookShelf, newBookImage } = data;
-				await dispatch(
-					addBooks({
-						title: newTitle,
-						author: newAuthor,
-						bookImage: newBookImage || null,
-						userId,
-						bookShelf: newBookShelf,
-					}),
-				);
+				await addBookMutation.mutateAsync({
+					title: newTitle,
+					author: newAuthor,
+					bookImage: newBookImage || undefined,
+					userId,
+					bookShelf: newBookShelf,
+				});
 				setIsFormVisible(false);
 			} else {
 				console.error("User ID is undefined");

@@ -1,17 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { RootDispatch, RootState } from "../../../store";
-import { changeBooksShelf } from "../../../features/books/books-slice.ts";
+import { RootState } from "../../../store";
 import { ChangeBookShelfType } from "../../../types/tool.type.ts";
+import { useChangeBookshelf } from "../../../hooks/useChangeBookshelf.ts";
 
 export const ChangeBookShelfButton = ({ _id, toggleTools, text, shelf }: ChangeBookShelfType) => {
-	const dispatch = useDispatch<RootDispatch>();
 	const userId = useSelector((state: RootState) => state.users.user?.id);
-	const bookShelf = shelf;
+	const changeBookShelfMutation = useChangeBookshelf();
 
-	const handleChange = () => {
+	const handleChange = async () => {
 		if (userId) {
-			dispatch(changeBooksShelf({ _id, userId, bookShelf }));
+			await changeBookShelfMutation.mutateAsync({ _id, userId, shelf });
 			toggleTools();
 		} else {
 			console.error("User ID is undefined");
