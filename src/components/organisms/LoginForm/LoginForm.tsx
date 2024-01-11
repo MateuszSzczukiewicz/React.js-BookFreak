@@ -1,16 +1,13 @@
 import { useForm, Controller } from "react-hook-form";
-import { loginUser } from "../../../api/users/LoginUserAPI.ts";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setAccessToken, setRefreshToken, setUser } from "../../../features/users/user-slice.ts";
 import { signInSchema, SignInSchemaType } from "../../../types/signInSchema.type.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormType } from "../../../types/user.type.ts";
 import { useState } from "react";
+import { useLoginUser } from "../../../hooks/useLoginUser.ts";
 
 export const LoginForm = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const [loginError, setLoginError] = useState("");
 
 	const {
@@ -21,13 +18,12 @@ export const LoginForm = () => {
 		resolver: zodResolver(signInSchema),
 	});
 
+	const loginUserMutation = useLoginUser();
+
 	const onSubmit = async ({ username, password }: UserFormType) => {
 		try {
-			const response = await loginUser(username, password);
+			const response = await loginUserMutation.mutateAsync({ username, password });
 			if (response.success) {
-				dispatch(setUser(response.user));
-				dispatch(setAccessToken(response.token));
-				dispatch(setRefreshToken(response.refreshToken));
 				navigate("/");
 			} else {
 				setLoginError("Dane logowania nieprawidłowe");

@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
 import { AuthenticatedApp } from "./AuthenticatedApp.tsx";
 import { UnauthenticatedApp } from "./UnauthenticatedApp.tsx";
+import { useQueryClient } from "react-query";
 
 export const Root = () => {
-	const token = useSelector((state: RootState) => state.users.user);
+	const queryClient = useQueryClient();
+
+	const token = queryClient.getQueryData("accessToken");
+
+	console.log(token);
 
 	return token ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 };

@@ -6,6 +6,7 @@ import { RootState } from "../../../store";
 import { DeleteAndEditType } from "../../../types/tool.type.ts";
 import { BookFormType } from "../../../types/bookInputForm.type.ts";
 import { useEditBook } from "../../../hooks/useEditBook.ts";
+import { Spinner } from "../Spinner/Spinner.tsx";
 
 export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
@@ -43,7 +44,13 @@ export const EditButton = ({ _id, toggleTools }: DeleteAndEditType) => {
 				<SingleTool text="Edytuj książkę" />
 			</div>
 			{isFormVisible && (
-				<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
+				<>
+					{editBookMutation.isLoading ? (
+						<Spinner />
+					) : (
+						<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
+					)}
+				</>
 			)}
 		</>
 	);

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { BookFormType } from "../../../types/bookInputForm.type";
 import { useAddBook } from "../../../hooks/useAddBook.ts";
+import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
 
 export const AddBook = () => {
 	const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
@@ -36,7 +37,13 @@ export const AddBook = () => {
 	return (
 		<div className="mx-auto flex h-56 w-44 items-center justify-center rounded-2xl bg-zinc-200 text-center text-2xl shadow-lg">
 			{isFormVisible ? (
-				<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
+				<>
+					{addBookMutation.isLoading ? (
+						<Spinner />
+					) : (
+						<BookInputForm onFormSubmit={handleFormSubmit} setIsFormVisible={setIsFormVisible} />
+					)}
+				</>
 			) : (
 				<button onClick={handleAdd}>{<PlusCircle />}</button>
 			)}

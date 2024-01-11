@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { SingleBook } from "../../molecules/SingleBook/SingleBook.tsx";
 import { AddBook } from "../../molecules/AddBook/AddBook.tsx";
 import { BookType } from "../../../types/book.type.ts";
@@ -6,12 +6,10 @@ import { BookShelvesEnum } from "../../../types/bookShelves.enum.ts";
 import { BookShelfButton } from "../../atoms/BookShelfButton/BookShelfButton";
 import { useGetBooks } from "../../../hooks/useGetBooks.ts";
 import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
+import { useSelectedShelf } from "../../../hooks/useSelectedShelf.ts";
 
 export const BookShelf: FC = () => {
-	const [selectedShelf, setSelectedShelf] = useState<BookShelvesEnum | null>(null);
-
-	const handleShelfClick = (shelf: BookShelvesEnum) => setSelectedShelf(shelf);
-
+	const { selectedShelf, handleShelfClick } = useSelectedShelf();
 	const { data, isLoading, isError } = useGetBooks();
 
 	if (isLoading) return <Spinner />;
@@ -42,11 +40,7 @@ export const BookShelf: FC = () => {
 			</div>
 			<main className="mx-auto my-20 grid grid-cols-1 justify-around gap-10 sm:grid-cols-2 md:grid-cols-3 lg:mx-48 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
 				{data
-					.filter((book: BookType) =>
-						selectedShelf
-							? book.bookShelf === selectedShelf
-							: book.bookShelf === BookShelvesEnum.READING,
-					)
+					.filter((book: BookType) => !selectedShelf || book.bookShelf === selectedShelf)
 					.map((book: BookType, index: number) => (
 						<SingleBook
 							key={index}

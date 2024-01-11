@@ -11,7 +11,9 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
 		<StrictMode>
 			<Provider store={store}>
 				<QueryClientProvider client={queryClient}>
-					<BrowserRouter>{children}</BrowserRouter>
+					<BrowserRouter>
+						<>{children}</>
+					</BrowserRouter>
 				</QueryClientProvider>
 			</Provider>
 		</StrictMode>

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { updatePassword } from "../../../api/users/UpdatePasswordAPI.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { useForm, Controller } from "react-hook-form";
@@ -9,10 +8,13 @@ import {
 } from "../../../types/changePasswordSchema.type.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChangeUserPasswordType } from "../../../types/user.type.ts";
+import { useUpdatePassword } from "../../../hooks/useUpdatePassword.ts";
+import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
 
 export const ProfileForm = () => {
 	const navigate = useNavigate();
 	const id = useSelector((state: RootState) => state.users.user?.id);
+	const updatePasswordMutation = useUpdatePassword();
 
 	const {
 		control,
@@ -24,7 +26,7 @@ export const ProfileForm = () => {
 
 	const onSubmit = async ({ password }: ChangeUserPasswordType) => {
 		try {
-			await updatePassword(id, password);
+			await updatePasswordMutation.mutateAsync({ id, password });
 			navigate("/");
 		} catch (e) {
 			console.error("Registration Error:", e);
@@ -33,6 +35,7 @@ export const ProfileForm = () => {
 
 	return (
 		<div className="w-full max-w-2xl">
+			{updatePasswordMutation.isLoading && <Spinner />}
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className="mb-4 flex flex-col rounded bg-white px-8 pb-8 shadow-md sm:pt-6"
