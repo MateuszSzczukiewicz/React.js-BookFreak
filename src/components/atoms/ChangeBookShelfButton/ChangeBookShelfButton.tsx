@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { RootDispatch, RootState } from "../../../store";
-import { changeBooksShelf } from "../../../features/books/books-slice.ts";
 import { ChangeBookShelfType } from "../../../types/tool.type.ts";
+import { useChangeBookshelf } from "../../../hooks/useChangeBookshelf.ts";
+import { Spinner } from "../Spinner/Spinner.tsx";
+import useUserData from "../../../hooks/useUserData.ts";
 
 export const ChangeBookShelfButton = ({ _id, toggleTools, text, shelf }: ChangeBookShelfType) => {
-	const dispatch = useDispatch<RootDispatch>();
-	const userId = useSelector((state: RootState) => state.users.user?.id);
+	const { userId } = useUserData();
+	const changeBookShelfMutation = useChangeBookshelf();
 	const bookShelf = shelf;
 
-	const handleChange = () => {
+	const handleChange = async () => {
 		if (userId) {
-			dispatch(changeBooksShelf({ _id, userId, bookShelf }));
+			await changeBookShelfMutation.mutateAsync({ _id, userId, bookShelf });
 			toggleTools();
 		} else {
 			console.error("User ID is undefined");
@@ -21,6 +21,7 @@ export const ChangeBookShelfButton = ({ _id, toggleTools, text, shelf }: ChangeB
 	return (
 		<>
 			<div onClick={handleChange}>
+				{changeBookShelfMutation.isLoading && <Spinner />}
 				<SingleTool text={text} />
 			</div>
 		</>

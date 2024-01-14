@@ -1,18 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-import { Homepage } from "./Homepage.tsx";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { ProfilePage } from "./ProfilePage.tsx";
-import { UnauthenticatedApp } from "./UnauthenticatedApp.tsx";
+import { Routes, Route } from "react-router-dom";
+import { Homepage } from "./Homepage";
+import { ProfilePage } from "./ProfilePage";
+import { UnauthenticatedApp } from "./UnauthenticatedApp";
+import { useQuery } from "react-query";
 
 export const AuthenticatedApp = () => {
-	const token = useSelector((state: RootState) => state.users.accessToken);
+	const { data } = useQuery("accessToken");
 
-	const isUserLoggedIn = () => Boolean(token);
+	const isUserLoggedIn = Boolean(data);
 
 	return (
 		<Routes>
-			{isUserLoggedIn() ? (
+			{isUserLoggedIn ? (
 				<>
 					<Route path="*" element={<Homepage />} />
 					<Route path="/profile" element={<ProfilePage />} />

@@ -1,9 +1,9 @@
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../../api/users/RegisterUserAPI.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, SignUpSchemaType } from "../../../types/signUpSchema.type.ts";
 import { UserFormType } from "../../../types/user.type.ts";
+import { useRegisterUser } from "../../../hooks/useRegisterUser.ts";
 
 export const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -15,10 +15,12 @@ export const RegisterForm = () => {
 		resolver: zodResolver(signUpSchema),
 	});
 
+	const registerUserMutation = useRegisterUser();
+
 	const onSubmit = async ({ username, password }: UserFormType) => {
 		try {
-			await registerUser(username, password);
 			navigate("/login");
+			await registerUserMutation.mutateAsync({ username, password });
 		} catch (e) {
 			console.error("Registration Error:", e);
 		}

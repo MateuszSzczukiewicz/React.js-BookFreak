@@ -1,16 +1,14 @@
 import { useForm, Controller } from "react-hook-form";
-import { loginUser } from "../../../api/users/LoginUserAPI.ts";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setAccessToken, setRefreshToken, setUser } from "../../../features/users/user-slice.ts";
 import { signInSchema, SignInSchemaType } from "../../../types/signInSchema.type.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormType } from "../../../types/user.type.ts";
 import { useState } from "react";
+import { useLoginUser } from "../../../hooks/useLoginUser.ts";
+import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
 
 export const LoginForm = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const [loginError, setLoginError] = useState("");
 
 	const {
@@ -21,13 +19,12 @@ export const LoginForm = () => {
 		resolver: zodResolver(signInSchema),
 	});
 
+	const loginUserMutation = useLoginUser();
+
 	const onSubmit = async ({ username, password }: UserFormType) => {
 		try {
-			const response = await loginUser(username, password);
+			const response = await loginUserMutation.mutateAsync({ username, password });
 			if (response.success) {
-				dispatch(setUser(response.user));
-				dispatch(setAccessToken(response.token));
-				dispatch(setRefreshToken(response.refreshToken));
 				navigate("/");
 			} else {
 				setLoginError("Dane logowania nieprawidłowe");
@@ -40,6 +37,7 @@ export const LoginForm = () => {
 
 	return (
 		<div className="w-full max-w-2xl">
+			{loginUserMutation.isLoading && <Spinner />}
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
@@ -55,7 +53,7 @@ export const LoginForm = () => {
 								{...field}
 								className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 								type="text"
-								placeholder="Adres e-mail"
+								placeholder="example@example.pl"
 								autoComplete="username"
 							/>
 						)}
@@ -73,7 +71,7 @@ export const LoginForm = () => {
 								{...field}
 								className="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
 								type="password"
-								placeholder="Hasło"
+								placeholder="1234567890"
 								autoComplete="current-password"
 							/>
 						)}

@@ -1,20 +1,13 @@
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../../../api/users/LogoutUserAPI.ts";
-import { clearUser } from "../../../features/users/user-slice.ts";
 import { useNavigate } from "react-router-dom";
+import useClearUser from "../../../hooks/useClearUser.ts";
 
 export const LogoutButton = () => {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const clearUserData = useClearUser();
 
 	const handleLogout = async () => {
-		const response = await logoutUser();
-		if (response.success) {
-			dispatch(clearUser());
-			navigate("/login");
-		} else {
-			console.error("Logout failed");
-		}
+		clearUserData();
+		navigate("/");
 	};
 
 	return (

@@ -1,20 +1,19 @@
-import { deleteUser } from "../../../api/users/DeleteUserAPI.ts";
-import { RootState } from "../../../store";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearUser } from "../../../features/users/user-slice.ts";
+import useUserData from "../../../hooks/useUserData.ts";
+import { useDeleteUserMutation } from "../../../hooks/useDeleteUserMutation.ts";
+import useClearUser from "../../../hooks/useClearUser.ts";
 
 export const DeleteAccountButton = () => {
-	const id = useSelector((state: RootState) => state.users.user?.id);
-	const dispatch = useDispatch();
+	const { userId } = useUserData();
+	const deleteUserMutation = useDeleteUserMutation();
+	const clearUserData = useClearUser();
 	const navigate = useNavigate();
 
 	const handleDeleteAccount = async () => {
 		const isConfirmed = window.confirm("Czy na pewno chcesz usunąć konto?");
-
 		if (isConfirmed) {
-			await deleteUser(id);
-			dispatch(clearUser());
+			await deleteUserMutation.mutateAsync({ userId });
+			clearUserData();
 			navigate("/");
 		}
 	};
