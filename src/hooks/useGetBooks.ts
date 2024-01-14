@@ -1,11 +1,10 @@
 import { useQuery } from "react-query";
 import axios, { AxiosResponse } from "axios";
 import { BookType } from "../types/book.type.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useUserData } from "./useUserData.ts";
 
 export const useGetBooks = () => {
-	const userId = useSelector((state: RootState) => state.users.user?.id);
+	const { userId } = useUserData();
 
 	return useQuery({
 		queryKey: "books",

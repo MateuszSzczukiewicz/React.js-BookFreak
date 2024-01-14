@@ -9,7 +9,7 @@ export const useAddBook = () => {
 			title: string;
 			author: string;
 			bookImage?: ArrayBuffer | string | undefined;
-			userId: string;
+			userId: string | undefined;
 			bookShelf: string;
 		}) => {
 			const url = `${import.meta.env.VITE_API_KEY}/profile/${variables.userId}/books`;

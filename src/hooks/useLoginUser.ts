@@ -23,11 +23,9 @@ export const useLoginUser = () => {
 		{
 			onSuccess: async (data) => {
 				if (data.success) {
-					const { token, refreshToken, user } = data;
-					console.log(token);
-					await queryClient.invalidateQueries("user", user);
-					await queryClient.invalidateQueries("refreshToken", refreshToken);
-					await queryClient.invalidateQueries("accessToken", token);
+					const { token, user } = data;
+					queryClient.setQueryData("user", user);
+					queryClient.setQueryData("accessToken", token);
 				}
 			},
 		},

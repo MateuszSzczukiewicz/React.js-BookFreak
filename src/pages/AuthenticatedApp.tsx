@@ -5,9 +5,9 @@ import { UnauthenticatedApp } from "./UnauthenticatedApp";
 import { useQuery } from "react-query";
 
 export const AuthenticatedApp = () => {
-	const token = useQuery("accessToken");
+	const { data } = useQuery("accessToken");
 
-	const isUserLoggedIn = Boolean(token);
+	const isUserLoggedIn = Boolean(data);
 
 	return (
 		<Routes>

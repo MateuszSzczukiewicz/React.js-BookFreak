@@ -1,9 +1,8 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
 import { useNavigate } from "react-router-dom";
+import useUserData from "../../../hooks/useUserData.ts";
 
 export const UsernameButton = () => {
-	const username = useSelector((state: RootState) => state.users.user?.username);
+	const { username } = useUserData();
 	const navigate = useNavigate();
 
 	return (

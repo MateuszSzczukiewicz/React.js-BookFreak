@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
 import { useForm, Controller } from "react-hook-form";
 import {
 	changePasswordSchema,
@@ -10,10 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChangeUserPasswordType } from "../../../types/user.type.ts";
 import { useUpdatePassword } from "../../../hooks/useUpdatePassword.ts";
 import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
+import useUserData from "../../../hooks/useUserData.ts";
 
 export const ProfileForm = () => {
 	const navigate = useNavigate();
-	const id = useSelector((state: RootState) => state.users.user?.id);
+	const { userId } = useUserData();
 	const updatePasswordMutation = useUpdatePassword();
 
 	const {
@@ -26,7 +25,7 @@ export const ProfileForm = () => {
 
 	const onSubmit = async ({ password }: ChangeUserPasswordType) => {
 		try {
-			await updatePasswordMutation.mutateAsync({ id, password });
+			await updatePasswordMutation.mutateAsync({ userId, password });
 			navigate("/");
 		} catch (e) {
 			console.error("Registration Error:", e);

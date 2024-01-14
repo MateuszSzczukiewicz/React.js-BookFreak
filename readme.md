@@ -29,7 +29,7 @@ BookFreak is a user-friendly mobile application designed for book enthusiasts to
 * [Zod](https://github.com/colinhacks/zod) - Walidator i schematyzator danych.
 * [TypeScript](https://www.typescriptlang.org/) - Rozszerzenie JavaScript o typy statyczne.
 * [axios](https://axios-http.com/) - Biblioteka do wykonywania żądań HTTP.
-* [Redux Toolkit](https://redux-toolkit.js.org/) - Narzędzia do zarządzania stanem aplikacji w React z użyciem Redux.
+* [React Query](https://tanstack.com/query/v3/) - Narzędzia pobierani i mutowania danych z API oraz do zarządzania stanem serwera w React.
 * [Storybook](https://storybook.js.org/) - Narzędzie do tworzenia komponentów i interfejsów użytkownika w izolacji.
 
 

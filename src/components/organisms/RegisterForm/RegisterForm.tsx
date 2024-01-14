@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, SignUpSchemaType } from "../../../types/signUpSchema.type.ts";
 import { UserFormType } from "../../../types/user.type.ts";
 import { useRegisterUser } from "../../../hooks/useRegisterUser.ts";
-import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
 
 export const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -20,8 +19,8 @@ export const RegisterForm = () => {
 
 	const onSubmit = async ({ username, password }: UserFormType) => {
 		try {
-			await registerUserMutation.mutateAsync({ username, password });
 			navigate("/login");
+			await registerUserMutation.mutateAsync({ username, password });
 		} catch (e) {
 			console.error("Registration Error:", e);
 		}
@@ -29,7 +28,6 @@ export const RegisterForm = () => {
 
 	return (
 		<div className="w-full max-w-2xl">
-			{registerUserMutation.isLoading && <Spinner />}
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"

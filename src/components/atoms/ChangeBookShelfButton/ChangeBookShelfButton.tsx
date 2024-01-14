@@ -1,12 +1,11 @@
-import { useSelector } from "react-redux";
 import { SingleTool } from "../../molecules/SingleTool/SingleTool.tsx";
-import { RootState } from "../../../store";
 import { ChangeBookShelfType } from "../../../types/tool.type.ts";
 import { useChangeBookshelf } from "../../../hooks/useChangeBookshelf.ts";
 import { Spinner } from "../Spinner/Spinner.tsx";
+import useUserData from "../../../hooks/useUserData.ts";
 
 export const ChangeBookShelfButton = ({ _id, toggleTools, text, shelf }: ChangeBookShelfType) => {
-	const userId = useSelector((state: RootState) => state.users.user?.id);
+	const { userId } = useUserData();
 	const changeBookShelfMutation = useChangeBookshelf();
 	const bookShelf = shelf;
 

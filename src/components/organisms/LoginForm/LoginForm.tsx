@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormType } from "../../../types/user.type.ts";
 import { useState } from "react";
 import { useLoginUser } from "../../../hooks/useLoginUser.ts";
+import { Spinner } from "../../atoms/Spinner/Spinner.tsx";
 
 export const LoginForm = () => {
 	const navigate = useNavigate();
@@ -36,6 +37,7 @@ export const LoginForm = () => {
 
 	return (
 		<div className="w-full max-w-2xl">
+			{loginUserMutation.isLoading && <Spinner />}
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
